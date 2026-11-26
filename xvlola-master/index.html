@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mis XV - Lola</title>
+
+  <!-- FUENTES -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Great+Vibes&family=Montserrat:wght@300;400;500;600&family=Pinyon+Script&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* =====================================================
+       VARIABLES & RESET
+    ===================================================== */
+    :root {
+      /* Paleta del Sobre / Elegante */
+      --navy: #172A46;
+      --navy-dark: #0c1930;
+      --navy-light: #263b5d;
+      --red: #BE0D31;
+      --red-dark: #8e0823;
+      --red-light: #D51D45;
+      --silver: #C9D4E2;
+      --silver-light: #EEF1F5;
+      --silver-dark: #8D96A3;
+      --white: #ffffff;
+
+      --envelope-width: min(520px, 88vw);
+      --envelope-height: calc(var(--envelope-width) * .67);
+
+      /* Variables Glassmorphism Invitación */
+      --glass-bg: rgba(255, 245, 247, 0.52);
+      --glass-border: #9e1b32;
+      --ink: #303038;
+      --ink-soft: #4a4a52;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      min-height: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: 'Montserrat', sans-serif;
+      color: var(--ink);
+      background-color: #e7e7eb;
+    }
+
+    /* =====================================================
+       FONDO ESTÁTICO DE LA PÁGINA
+    ===================================================== */
+    .bg-img {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: 0;
+      pointer-events: none;
+      transform: translateZ(0);
+    }
+
+    /* =====================================================
+       OVERLAY DEL SOBRE EN 3D Y PANTALLA WELCOME
+    ===================================================== */
+    #envelope-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle at center, #253957 0%, #101d34 55%, #07101f 100%);
+      transition: opacity 1s ease, visibility 1s ease;
+    }
+
+    .background-envelope {
+      position: absolute;
+      inset: 0;
+      background: 
+        radial-gradient(circle at 50% 30%, rgba(201, 212, 226, .16), transparent 35%),
+        radial-gradient(circle at 20% 80%, rgba(190, 13, 49, .12), transparent 35%);
+      pointer-events: none;
+    }
+
+    .scene {
+      position: relative;
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      perspective: 1800px;
+      padding: 30px;
+      z-index: 10;
+    }
+
+    .envelope-wrapper {
+      position: relative;
+      width: var(--envelope-width);
+      height: var(--envelope-height);
+      transform-style: preserve-3d;
+      transition: transform 1.2s cubic-bezier(.2,.8,.2,1);
+      cursor: pointer;
+    }
+
+    .envelope-wrapper:hover {
+      transform: translateY(-5px);
+    }
+
+    .envelope {
+      position: absolute;
+      inset: 0;
+      transform-style: preserve-3d;
+    }
+
+    .envelope-back {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(145deg, #203454, var(--navy));
+      border-radius: 4px 4px 10px 10px;
+      box-shadow: 0 35px 70px rgba(0,0,0,.55), 0 8px 20px rgba(0,0,0,.35);
+      overflow: hidden;
+    }
+
+    .envelope-back::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: .12;
+      background-image: radial-gradient(rgba(255,255,255,.4) .7px, transparent .7px);
+      background-size: 5px 5px;
+      pointer-events: none;
+    }
+
+    .inner-silver {
+      position: absolute;
+      top: 5%;
+      left: 7%;
+      width: 86%;
+      height: 72%;
+      background: linear-gradient(135deg, #ffffff, var(--silver-light), var(--silver), #ffffff);
+      clip-path: polygon(0 0, 100% 0, 91% 100%, 9% 100%);
+      box-shadow: inset 0 0 20px rgba(255,255,255,.7);
+      z-index: 1;
+    }
+
+    .inner-silver::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,.95) 1px, transparent 1px);
+      background-size: 4px 4px;
+      opacity: .45;
+    }
+
+    .vertical-ribbon {
+      position: absolute;
+      z-index: 3;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 76px;
+      transform: translateX(-50%);
+      background: linear-gradient(90deg, #8e0823, var(--red), #ed3157, var(--red), #8e0823);
+      box-shadow: 0 0 15px rgba(190,13,49,.3);
+    }
+
+    .horizontal-ribbon {
+      position: absolute;
+      z-index: 5;
+      left: 0;
+      right: 0;
+      top: 58%;
+      height: 82px;
+      background: linear-gradient(180deg, #1e3354, var(--navy), #101e36);
+      box-shadow: 0 10px 18px rgba(0,0,0,.25);
+    }
+
+    .flap {
+      position: absolute;
+      z-index: 8;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(145deg, #203655, var(--navy), #101d34);
+      clip-path: polygon(0 0, 100% 0, 50% 64%);
+      transform-origin: top center;
+      transform-style: preserve-3d;
+      transition: transform 1.15s cubic-bezier(.2,.8,.2,1);
+      box-shadow: 0 8px 20px rgba(0,0,0,.3);
+    }
+
+    .flap::after {
+      content: "";
+      position: absolute;
+      top: 10px;
+      left: 3%;
+      width: 94%;
+      height: 58%;
+      border-top: 1px solid rgba(201,212,226,.45);
+      border-left: 1px solid rgba(201,212,226,.25);
+      border-right: 1px solid rgba(201,212,226,.25);
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+    }
+
+    .invitation-card {
+      position: absolute;
+      z-index: 6;
+      left: 50%;
+      bottom: 7%;
+      width: 65%;
+      height: 47%;
+      transform: translateX(-50%) translateZ(15px);
+      background: linear-gradient(145deg, #172A46, #20385c);
+      border: 1px solid rgba(201,212,226,.45);
+      box-shadow: 0 12px 25px rgba(0,0,0,.4);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .card-small {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(.55rem, 1.5vw, .8rem);
+      letter-spacing: .25em;
+      color: var(--silver);
+    }
+
+    .card-name {
+      margin-top: 5px;
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      color: white;
+      text-shadow: 0 2px 8px rgba(0,0,0,.3);
+    }
+
+    .card-line {
+      width: 55%;
+      height: 1px;
+      margin: 8px 0;
+      background: linear-gradient(90deg, transparent, var(--silver), transparent);
+    }
+
+    .card-date {
+      font-family: 'Cinzel', serif;
+      color: var(--silver-light);
+      font-size: clamp(.55rem, 1.5vw, .75rem);
+      letter-spacing: .1em;
+    }
+
+    .bow {
+      position: absolute;
+      z-index: 10;
+      left: 50%;
+      top: 55%;
+      width: 250px;
+      height: 90px;
+      transform: translate(-50%, -50%);
+    }
+
+    .bow-left, .bow-right {
+      position: absolute;
+      top: 15px;
+      width: 125px;
+      height: 58px;
+      background: linear-gradient(180deg, #ef3659, var(--red), #85071f);
+      box-shadow: inset 0 4px 8px rgba(255,255,255,.18), 0 8px 12px rgba(0,0,0,.3);
+    }
+
+    .bow-left {
+      right: 50%;
+      border-radius: 70% 15% 15% 70%;
+      transform: rotate(5deg);
+    }
+
+    .bow-right {
+      left: 50%;
+      border-radius: 15% 70% 70% 15%;
+      transform: rotate(-5deg);
+    }
+
+    .bow-tail-left, .bow-tail-right {
+      position: absolute;
+      top: 48px;
+      width: 125px;
+      height: 60px;
+      background: linear-gradient(180deg, var(--red), #85071f);
+      clip-path: polygon(0 0, 100% 0, 75% 100%, 50% 75%, 20% 100%);
+    }
+
+    .bow-tail-left {
+      right: 50%;
+      transform: rotate(9deg);
+    }
+
+    .bow-tail-right {
+      left: 50%;
+      transform: scaleX(-1) rotate(9deg);
+    }
+
+    .bow-center {
+      position: absolute;
+      z-index: 4;
+      top: 16px;
+      left: 50%;
+      width: 48px;
+      height: 48px;
+      transform: translateX(-50%) rotate(45deg);
+      background: linear-gradient(145deg, #ffffff, var(--silver), #89929e);
+      border: 2px solid #ffffff;
+      box-shadow: 0 5px 12px rgba(0,0,0,.35);
+    }
+
+    .bow-center::after {
+      content: "";
+      position: absolute;
+      inset: 8px;
+      border: 1px solid rgba(255,255,255,.9);
+    }
+
+    .silver-shine {
+      position: absolute;
+      z-index: 20;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(120deg, transparent 25%, rgba(255,255,255,.12) 45%, transparent 65%);
+      transform: translateX(-120%);
+      transition: transform 1.5s ease;
+    }
+
+    .envelope-wrapper:hover .silver-shine {
+      transform: translateX(120%);
+    }
+
+    .click-hint {
+      position: absolute;
+      top: calc(100% + 35px);
+      left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap;
+      color: rgba(255,255,255,.7);
+      font-size: .75rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: .45; }
+      50% { opacity: 1; }
+    }
+
+    /* ESTADO ABIERTO DEL SOBRE */
+    .envelope-wrapper.open {
+      transform: translateY(80px);
+    }
+
+    .envelope-wrapper.open .flap {
+      transform: rotateX(180deg);
+      z-index: 2;
+    }
+
+    .envelope-wrapper.open .invitation-card {
+      animation: cardOut 1.5s cubic-bezier(.2,.8,.2,1) .65s forwards;
+    }
+
+    .envelope-wrapper.open .bow {
+      animation: bowOut .8s ease forwards;
+    }
+
+    @keyframes cardOut {
+      0% { transform: translateX(-50%) translateY(0) translateZ(15px); }
+      100% { transform: translateX(-50%) translateY(-125%) translateZ(250px); }
+    }
+
+    @keyframes bowOut {
+      to {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(.7);
+      }
+    }
+
+    /* PANTALLA BIENVENIDA / POST APERTURA */
+    .welcome {
+      position: fixed;
+      z-index: 100;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 30px;
+      background: radial-gradient(circle at center, #263b5d, #0b1629 75%);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 1s ease, visibility 1s ease;
+    }
+
+    .welcome.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .welcome-subtitle {
+      font-family: 'Cinzel', serif;
+      letter-spacing: .3em;
+      font-size: .8rem;
+      color: var(--silver);
+    }
+
+    .welcome-title {
+      margin-top: 10px;
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(4rem, 15vw, 8rem);
+      color: white;
+      text-shadow: 0 4px 25px rgba(0,0,0,.5);
+    }
+
+    .welcome-date {
+      margin-top: 10px;
+      font-family: 'Cinzel', serif;
+      color: var(--silver);
+      letter-spacing: .18em;
+    }
+
+    .enter-button {
+      margin-top: 35px;
+      padding: 14px 30px;
+      border: 1px solid var(--silver);
+      background: transparent;
+      color: white;
+      font-family: 'Montserrat', sans-serif;
+      letter-spacing: .15em;
+      cursor: pointer;
+      transition: .3s;
+    }
+
+    .enter-button:hover {
+      background: var(--red);
+      border-color: var(--red);
+      transform: translateY(-2px);
+    }
+
+    /* =====================================================
+       ESTILOS DEL CONTENIDO PRINCIPAL (GLASS CARDS)
+    ===================================================== */
+    .card-container {
+      width: 100%;
+      background: transparent;
+      text-align: center;
+    }
+
+    .card-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .section {
+      min-height: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: clamp(14px, 4vw, 24px) clamp(10px, 4vw, 24px);
+      margin-bottom: clamp(40px, 12vh, 110px);
+    }
+
+    .header-section {
+      min-height: 100vh;
+    }
+
+    .glass-card {
+      background: var(--glass-bg);
+      -webkit-backdrop-filter: blur(6px);
+      backdrop-filter: blur(6px);
+      border: 1px solid var(--glass-border);
+      border-radius: clamp(20px, 4vw, 32px);
+      box-shadow: 0 12px 40px rgba(55, 55, 65, 0.20);
+      padding: clamp(26px, 5vw, 48px) clamp(18px, 4.5vw, 36px);
+      max-width: min(470px, 92vw);
+      width: 100%;
+      text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
+    }
+
+    .glass-card--full {
+      max-width: min(470px, 92vw);
+      width: 100%;
+    }
+
+    h1.title {
+      font-family: 'Pinyon Script', cursive;
+      font-size: clamp(4rem, 18vw, 9rem);
+      font-weight: 400;
+      color: var(--ink);
+      line-height: 1.1;
+      margin: 4px 0;
+    }
+
+    h2 {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(2.4rem, 9vw, 4.5rem);
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: 12px;
+      line-height: 1.1;
+    }
+
+    .subtitle {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1rem, 4vw, 1.6rem);
+      letter-spacing: 0.34em;
+      color: #8f182d;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .divider {
+      color: #9e1b32;
+      margin: 14px 0;
+      letter-spacing: 8px;
+      font-size: 1.2rem;
+    }
+
+    .quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(1.2rem, 4.5vw, 1.9rem);
+      line-height: 1.5;
+      color: var(--ink);
+    }
+
+    .highlight, .address, .time, .date-note, .time-label, .note {
+      font-family: 'Cinzel', serif;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+
+    .highlight {
+      font-weight: 600;
+      font-size: clamp(1.15rem, 4.5vw, 1.8rem);
+      letter-spacing: 0.12em;
+      margin-bottom: 8px;
+    }
+
+    .address {
+      font-size: clamp(0.95rem, 3.6vw, 1.35rem);
+      letter-spacing: 0.1em;
+      line-height: 1.6;
+    }
+
+    .time {
+      font-size: clamp(1rem, 3.8vw, 1.45rem);
+      letter-spacing: 0.1em;
+      font-weight: 600;
+      margin: 12px 0 20px;
+    }
+
+    .text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.15rem, 4.5vw, 1.6rem);
+      color: var(--ink);
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .note {
+      font-size: clamp(0.9rem, 3.4vw, 1.25rem);
+      letter-spacing: 0.08em;
+      line-height: 1.6;
+      margin: 12px 0 18px;
+      font-weight: 400;
+    }
+
+    /* TIMER */
+    .timer-grid {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: clamp(6px, 2vw, 12px);
+      margin: 16px 0;
+    }
+
+    .time-box {
+      background: rgba(255, 245, 247, 0.48);
+      -webkit-backdrop-filter: blur(4px);
+      backdrop-filter: blur(4px);
+      border: 1px solid #9e1b32;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(65, 65, 75, 0.14);
+      padding: clamp(10px, 2.5vw, 16px) clamp(6px, 2vw, 12px);
+      min-width: clamp(60px, 18vw, 84px);
+    }
+
+    .time-num {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 8vw, 3.6rem);
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .time-label {
+      display: block;
+      font-size: clamp(0.65rem, 2.5vw, 0.9rem);
+      letter-spacing: 0.12em;
+      margin-top: 2px;
+      font-weight: 600;
+    }
+
+    .time-sep {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.6rem, 6vw, 2.2rem);
+      color: #9e1b32;
+      padding-bottom: 18px;
+    }
+
+    .date-note {
+      font-size: clamp(0.95rem, 3.6vw, 1.35rem);
+      font-weight: 600;
+      letter-spacing: 0.18em;
+    }
+
+    /* BOTONES */
+    .btn-group {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: clamp(12px, 3vw, 16px) clamp(20px, 6vw, 30px);
+      border-radius: 25px;
+      border: 1.5px solid var(--glass-border);
+      background-color: transparent;
+      color: #8f182d;
+      text-decoration: none;
+      font-size: clamp(0.85rem, 3.2vw, 1.1rem);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #8f182d;
+      border-color: #9e1b32;
+      color: #fff;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #9e1b32, #6f1224);
+      border-color: #9e1b32;
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: #9e1b32;
+      border-color: #9e1b32;
+    }
+
+    /* MUESTRAS DE DRESS CODE */
+    .swatches-grid {
+      display: flex;
+      justify-content: center;
+      gap: clamp(12px, 4vw, 24px);
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .swatch-img {
+      width: clamp(72px, 24vw, 96px);
+      height: clamp(72px, 24vw, 96px);
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid rgba(255, 255, 255, 0.85);
+      box-shadow: 0 4px 12px rgba(74, 46, 43, 0.2);
+    }
+
+    /* DESPLEGABLE ALIAS */
+    .alias-drop {
+      margin-top: 14px;
+    }
+
+    .alias-summary {
+      display: inline-block;
+      cursor: pointer;
+      list-style: none;
+      border: none;
+      background: transparent;
+      padding: 2px 0;
+      color: #8f182d;
+      font-size: clamp(0.78rem, 3vw, 1rem);
+      letter-spacing: 0.1em;
+      text-transform: none;
+      font-weight: 400;
+      opacity: 0.65;
+      border-bottom: 1px dashed var(--glass-border);
+      transition: opacity 0.25s ease;
+    }
+
+    .alias-summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .alias-summary:hover {
+      opacity: 1;
+    }
+
+    .alias-box {
+      background: rgba(255, 245, 247, 0.58);
+      -webkit-backdrop-filter: blur(4px);
+      backdrop-filter: blur(4px);
+      border: 1.5px dashed var(--glass-border);
+      padding: clamp(12px, 3vw, 18px);
+      border-radius: 14px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(0.9rem, 3.2vw, 1.2rem);
+      line-height: 2;
+      color: var(--ink);
+      margin-top: 12px;
+    }
+
+    .alias-box strong {
+      color: #8f182d;
+    }
+
+    .copy-btn {
+      margin-left: 10px;
+      padding: 4px 14px;
+      border-radius: 15px;
+      border: 1px solid var(--glass-border);
+      background: transparent;
+      color: #8f182d;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .copy-btn:hover {
+      background: #9e1b32;
+      color: #fff;
+    }
+
+    .final-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.4rem, 5.5vw, 2.3rem);
+      font-style: italic;
+      color: var(--ink);
+      line-height: 1.5;
+    }
+
+    /* REPRODUCTOR FLOTANTE */
+    .music-widget {
+      position: fixed;
+      bottom: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 6px 18px rgba(94, 58, 53, 0.25);
+      border-radius: 50%;
+      padding: 6px;
+      z-index: 999;
+    }
+
+    .music-btn {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      border: none;
+      background: linear-gradient(135deg, #9e1b32, #6f1224);
+      color: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s ease;
+      position: relative;
+    }
+
+    .music-btn::before {
+      content: "";
+      width: 0;
+      height: 0;
+      margin-left: 4px;
+      border-top: 9px solid transparent;
+      border-bottom: 9px solid transparent;
+      border-left: 15px solid #fff;
+    }
+
+    .music-btn.playing::before {
+      display: none;
+    }
+
+    .music-btn.playing::after {
+      content: "";
+      width: 16px;
+      height: 18px;
+      background: repeating-linear-gradient(90deg, #fff 0 5px, transparent 5px 9px);
+      border-radius: 2px;
+    }
+
+    .music-btn:hover {
+      transform: scale(1.06);
+    }
+
+    /* RESPONSIVE MEDIA QUERIES */
+    @media (max-width: 600px) {
+      :root {
+        --envelope-width: 90vw;
+      }
+      .vertical-ribbon { width: 52px; }
+      .horizontal-ribbon { height: 65px; }
+      .bow {
+        width: 190px;
+        transform: translate(-50%, -50%) scale(.8);
+      }
+      .invitation-card { width: 68%; }
+      .click-hint { top: calc(100% + 20px); }
+    }
+
+    @media (max-height: 700px) {
+      .scene {
+        padding-top: 20px;
+        padding-bottom: 60px;
+      }
+      .envelope-wrapper { transform: scale(.82); }
+      .envelope-wrapper.open { transform: scale(.82) translateY(50px); }
+    }
+
+    @media (max-width: 480px) {
+      .glass-card {
+        padding: 28px 16px;
+        border-radius: 20px;
+      }
+      .timer-grid { gap: 6px; }
+      .time-box {
+        min-width: 62px;
+        padding: 12px 6px;
+      }
+      .btn { padding: 12px 18px; }
+      .music-widget { bottom: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- FONDO ESTÁTICO PRINCIPAL -->
+  <img src="img/fondo rojo.png" alt="Fondo Rojo" class="bg-img">
+
+  <!-- =====================================================
+       SOBRE 3D Y PANTALLA POST APERTURA
+  ===================================================== -->
+  <div id="envelope-overlay">
+    <div class="background-envelope"></div>
+
+    <main class="scene">
+      <div
+        class="envelope-wrapper"
+        id="envelope"
+        role="button"
+        tabindex="0"
+        aria-label="Abrir invitación"
+      >
+        <div class="envelope">
+          <!-- CUERPO DEL SOBRE -->
+          <div class="envelope-back">
+            <div class="inner-silver"></div>
+            <div class="vertical-ribbon"></div>
+
+            <!-- TARJETA INTERIOR -->
+            <div class="invitation-card">
+              <span class="card-small">MIS 15 AÑOS</span>
+              <div class="card-name">Lola</div>
+              <div class="card-line"></div>
+              <span class="card-date">24 · 10 · 2026</span>
+            </div>
+
+            <div class="horizontal-ribbon"></div>
+
+            <!-- LAZO -->
+            <div class="bow">
+              <div class="bow-left"></div>
+              <div class="bow-right"></div>
+              <div class="bow-tail-left"></div>
+              <div class="bow-tail-right"></div>
+              <div class="bow-center"></div>
+            </div>
+
+            <div class="silver-shine"></div>
+          </div>
+
+          <!-- SOLAPA -->
+          <div class="flap"></div>
+        </div>
+
+        <div class="click-hint">Toca el sobre para abrir</div>
+      </div>
+    </main>
+
+  </div>
+
+  <!-- =====================================================
+       CONTENIDO PRINCIPAL
+  ===================================================== -->
+  <main class="card-container">
+    <div class="card-content">
+
+      <!-- PORTADA -->
+      <header class="section header-section">
+        <div class="glass-card glass-card--full">
+          <p class="subtitle">MIS 15 AÑOS</p>
+          <h1 class="title">Lola</h1>
+          <div class="divider">✦</div>
+          <p class="quote">"Hay momentos en la vida que son inolvidables, pero compartirlos con las personas que más quiero los hace eternos."</p>
+        </div>
+      </header>
+
+      <!-- CUENTA REGRESIVA -->
+      <section class="section countdown-section">
+        <div class="glass-card">
+          <h2>Faltan</h2>
+          <div id="timer" class="timer-grid">
+            <div class="time-box"><span class="time-num" id="days">0</span><span class="time-label">Días</span></div>
+            <div class="time-sep">:</div>
+            <div class="time-box"><span class="time-num" id="hours">00</span><span class="time-label">Horas</span></div>
+            <div class="time-sep">:</div>
+            <div class="time-box"><span class="time-num" id="minutes">00</span><span class="time-label">Min</span></div>
+            <div class="time-sep">:</div>
+            <div class="time-box"><span class="time-num" id="seconds">00</span><span class="time-label">Sec</span></div>
+          </div>
+          <p class="date-note">24 de octubre de 2026</p>
+        </div>
+      </section>
+
+      <!-- FIESTA -->
+      <section class="section">
+        <div class="glass-card">
+          <h2>La Fiesta</h2>
+          <p class="highlight">Garaycochea 640</p>
+          <p class="address">El Palomar</p>
+          <p class="time">a partir de las 21:30 hs</p>
+          <div class="btn-group">
+            <a href="https://maps.app.goo.gl/VwkD2PdNEUjZLZ7QA" target="_blank" rel="noopener" class="btn">Ver Mapa</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- DRESS CODE -->
+      <section class="section">
+        <div class="glass-card">
+          <h2>Código de Vestimenta</h2>
+          <p class="highlight">Dresscode Elegante</p>
+          <p class="note">Tratar de evitar estos colores</p>
+          <div class="swatches-grid">
+            <img src="telas/1.jpeg" alt="Rosa bebe" class="swatch-img">
+            <img src="telas/2.jpeg" alt="Rosa Dust" class="swatch-img">
+            <img src="telas/3.jpeg" alt="Rosa Dust" class="swatch-img">
+          </div>
+        </div>
+      </section>
+
+      <!-- ASISTENCIA & MÚSICA -->
+      <section class="section">
+        <div class="glass-card">
+          <h2>Asistencia &amp; Música</h2>
+          <p class="text">Confirmá tu presencia, contanos tus restricciones alimentarias y sugerí las canciones que no pueden faltar por whatsapp.</p>
+        </div>
+      </section>
+
+      <!-- CIERRE -->
+      <footer class="section footer-section">
+        <div class="glass-card glass-card--full">
+          <p class="final-text">¡Te espero para festejar juntos una noche inolvidable!</p>
+          <div class="divider">✦</div>
+          <p class="subtitle">MIS 15 AÑOS</p>
+          <h1 class="title">Lola</h1>
+        </div>
+      </footer>
+
+    </div>
+  </main>
+
+  <!-- REPRODUCTOR DE MÚSICA FLOTANTE -->
+  <div class="music-widget">
+    <audio id="music-player" loop>
+      <source src="JVKE%20-%20golden%20hour%20(official%20music%20video).mp3" type="audio/mpeg">
+      Tu navegador no soporta audio.
+    </audio>
+    <button id="music-toggle" class="music-btn" aria-label="Reproducir música"></button>
+  </div>
+
+  <!-- CANVAS DE DESTELLOS -->
+  <canvas id="sparkles-canvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 100000;"></canvas>
+
+  <script>
+    /* =====================================================
+       LÓGICA DEL SOBRE
+    ===================================================== */
+    const envelope = document.getElementById("envelope");
+    const envelopeOverlay = document.getElementById("envelope-overlay");
+    const player = document.getElementById("music-player");
+    const toggle = document.getElementById("music-toggle");
+    let opened = false;
+
+    function openEnvelope() {
+      if (opened) return;
+      opened = true;
+      envelope.classList.add("open");
+
+      setTimeout(() => {
+        envelopeOverlay.style.opacity = "0";
+        envelopeOverlay.style.visibility = "hidden";
+        setTimeout(() => {
+          envelopeOverlay.style.display = "none";
+        }, 1000);
+
+        if (player.paused) {
+          player.play().then(() => {
+            toggle.classList.add("playing");
+          }).catch(() => {
+            // Si el navegador bloquea autoplay
+          });
+        }
+      }, 900);
+    }
+
+    envelope.addEventListener("click", openEnvelope);
+
+    envelope.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        openEnvelope();
+      }
+    });
+
+    /* =====================================================
+       CUENTA REGRESIVA
+    ===================================================== */
+    const eventDate = new Date("2026-10-24T21:30:00").getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = eventDate - now;
+
+      if (distance < 0) {
+        document.getElementById("timer").innerHTML = "¡Empezó la fiesta!";
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById("days").innerText = days;
+      document.getElementById("hours").innerText = String(hours).padStart(2, "0");
+      document.getElementById("minutes").innerText = String(minutes).padStart(2, "0");
+      document.getElementById("seconds").innerText = String(seconds).padStart(2, "0");  
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    /* =====================================================
+       REPRODUCTOR MÚSICA
+    ===================================================== */
+    toggle.addEventListener("click", function () {
+      if (player.paused) {
+        player.play();
+        toggle.classList.add("playing");
+      } else {
+        player.pause();
+        toggle.classList.remove("playing");
+      }
+    });
+
+    /* =====================================================
+       COPIAR ALIAS
+    ===================================================== */
+    document.querySelectorAll(".copy-btn").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        const value = btn.dataset.copy;
+        navigator.clipboard.writeText(value).then(function () {
+          btn.textContent = "¡Copiado!";
+          setTimeout(function () { btn.textContent = "Copiar"; }, 2000);
+        });
+      });
+    });
+
+    /* =====================================================
+       CANVAS DE DESTELLOS
+    ===================================================== */
+    (function() {
+      const canvas = document.getElementById('sparkles-canvas');
+      const ctx = canvas.getContext('2d');
+
+      function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      window.addEventListener('resize', resize);
+      resize();
+
+      const goldPalette = ['#FFD3E0', '#FFB9CC', '#FFCDDB', '#FFE6EE', '#FFF1F6', '#FFFFFF'];
+      const particles = [];
+      const count = 75;
+
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          size: Math.random() * 3.5 + 1.5,
+          color: goldPalette[Math.floor(Math.random() * goldPalette.length)],
+          speedY: Math.random() * 1.2 + 0.6,
+          speedX: Math.random() * 0.6 - 0.3,
+          opacity: Math.random() * 0.8 + 0.2,
+          rotation: Math.random() * 360,
+          rotSpeed: Math.random() * 3 - 1.5,
+          shape: Math.random() > 0.4 ? 'star' : 'diamond'
+        });
+      }
+
+      function drawStar(cx, cy, spikes, outerRadius, innerRadius) {
+        let rot = (Math.PI / 2) * 3;
+        let step = Math.PI / spikes;
+
+        ctx.beginPath();
+        ctx.moveTo(cx, cy - outerRadius);
+        for (let i = 0; i < spikes; i++) {
+          let x = cx + Math.cos(rot) * outerRadius;
+          let y = cy + Math.sin(rot) * outerRadius;
+          ctx.lineTo(x, y);
+          rot += step;
+
+          x = cx + Math.cos(rot) * innerRadius;
+          y = cy + Math.sin(rot) * innerRadius;
+          ctx.lineTo(x, y);
+          rot += step;
+        }
+        ctx.lineTo(cx, cy - outerRadius);
+        ctx.closePath();
+        ctx.fill();
+      }
+
+      function drawDiamond(cx, cy, size) {
+        ctx.beginPath();
+        ctx.moveTo(cx, cy - size * 1.5);
+        ctx.lineTo(cx + size, cy);
+        ctx.lineTo(cx, cy + size * 1.5);
+        ctx.lineTo(cx - size, cy);
+        ctx.closePath();
+        ctx.fill();
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        particles.forEach(p => {
+          ctx.save();
+          ctx.globalAlpha = p.opacity;
+          ctx.fillStyle = p.color;
+          ctx.shadowColor = '#FFD3E0';
+          ctx.shadowBlur = 8;
+
+          p.y += p.speedY;
+          p.x += Math.sin(p.y * 0.01) + p.speedX;
+          p.rotation += p.rotSpeed;
+
+          if (p.y > canvas.height) {
+            p.y = -10;
+            p.x = Math.random() * canvas.width;
+          }
+
+          ctx.translate(p.x, p.y);
+          ctx.rotate((p.rotation * Math.PI) / 180);
+
+          if (p.shape === 'diamond') {
+            drawDiamond(0, 0, p.size);
+          } else {
+            drawStar(0, 0, 4, p.size * 2, p.size * 0.6);
+          }
+
+          ctx.restore();
+        });
+
+        requestAnimationFrame(animate);
+      }
+
+      animate();
+    })();
+  </script>
+</body>
+</html>

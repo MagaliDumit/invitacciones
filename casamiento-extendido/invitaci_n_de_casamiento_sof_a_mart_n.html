@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sofía & Martín — Nuestra Boda</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Cormorant Garamond, Playfair Display & Montserrat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome para iconografía refinada -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Tone.js para melodía ambiental suave generada (sin enlaces externos) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream: {
+              50: '#FDFBF7',
+              100: '#F9F5EC',
+              200: '#F1E9D8',
+              300: '#E5D8BE',
+            },
+            sage: {
+              100: '#EBF0EC',
+              300: '#B8C7BC',
+              500: '#7D9283',
+              600: '#627668',
+              700: '#4A5B4F',
+              800: '#354239',
+            },
+            gold: {
+              300: '#DFC99B',
+              400: '#C8A96E',
+              500: '#B08D4C',
+              600: '#917138',
+            },
+            charcoal: {
+              700: '#3D3B38',
+              800: '#2A2927',
+              900: '#1C1B1A',
+            }
+          },
+          fontFamily: {
+            serif: ['"Cormorant Garamond"', '"Playfair Display"', 'Georgia', 'serif'],
+            display: ['"Playfair Display"', 'Georgia', 'serif'],
+            sans: ['"Montserrat"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Estilos personalizados para texturas, animaciones del sobre y detalles finos */
+    body {
+      background-color: #FDFBF7;
+      color: #2A2927;
+      overflow-x: hidden;
+    }
+
+    /* Textura sutil de papel artesanal */
+    .paper-texture {
+      background-image: radial-gradient(rgba(176, 141, 76, 0.06) 1px, transparent 0);
+      background-size: 24px 24px;
+    }
+
+    /* Animación del sello de lacre */
+    @keyframes pulseSeal {
+      0%, 100% { transform: scale(1); box-shadow: 0 10px 25px -5px rgba(145, 113, 56, 0.45), inset 0 2px 4px rgba(255,255,255,0.4); }
+      50% { transform: scale(1.04); box-shadow: 0 15px 30px -5px rgba(145, 113, 56, 0.65), inset 0 2px 4px rgba(255,255,255,0.5); }
+    }
+
+    .wax-seal {
+      background: radial-gradient(circle at 30% 30%, #D4B475, #A68241 65%, #7A5C26 100%);
+      animation: pulseSeal 3s infinite ease-in-out;
+    }
+
+    /* Transiciones del sobre inicial */
+    .envelope-flap-top {
+      clip-path: polygon(0 0, 50% 56%, 100% 0);
+      transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-origin: top;
+    }
+    .envelope-open .envelope-flap-top {
+      transform: rotateX(180deg);
+    }
+    .envelope-overlay {
+      transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
+    }
+    .envelope-hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    /* Animaciones suaves de aparición al hacer scroll */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: all 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Líneas decorativas doradas */
+    .gold-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #C8A96E, transparent);
+    }
+
+    /* Barra de desplazamiento elegante */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #F9F5EC;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #C8A96E;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body class="font-sans antialiased selection:bg-sage-500 selection:text-white">
+
+  <!-- ===================================================================== -->
+  <!-- 1. PANTALLA INICIAL: SOBRE CON SELLO DE LACRE INTERACTIVO             -->
+  <!-- ===================================================================== -->
+  <div id="envelope-screen" class="envelope-overlay fixed inset-0 z-50 flex items-center justify-center bg-cream-100 paper-texture p-4">
+    <!-- Marco decorativo exterior -->
+    <div class="relative w-full max-w-lg aspect-[4/3] sm:aspect-[16/11] bg-cream-50 rounded-2xl shadow-2xl border border-gold-300/60 overflow-hidden flex flex-col items-center justify-center p-6 text-center">
+      
+      <!-- Solapa superior del sobre -->
+      <div class="envelope-flap-top absolute inset-0 bg-gradient-to-b from-cream-200 to-cream-300/80 border-b border-gold-400/40 z-10 pointer-events-none"></div>
+      
+      <!-- Pliegues laterales inferiores simulados -->
+      <div class="absolute inset-0 pointer-events-none opacity-40" style="background: linear-gradient(32deg, #E5D8BE 48%, transparent 50%), linear-gradient(-32deg, #E5D8BE 48%, transparent 50%);"></div>
+
+      <!-- Contenido sobre el sobre -->
+      <div class="relative z-20 flex flex-col items-center mt-4 sm:mt-8">
+        <p class="uppercase tracking-[0.28em] text-[10px] sm:text-xs text-sage-700 font-medium mb-2">
+          Invitación Especial
+        </p>
+        <h2 class="font-serif italic text-2xl sm:text-3xl text-charcoal-800 mb-6">
+          Para nuestra familia y amigos
+        </h2>
+
+        <!-- Sello de Lacre Interactivo -->
+        <button id="open-envelope-btn" aria-label="Abrir invitación" class="wax-seal group relative w-24 h-24 sm:w-28 sm:h-28 rounded-full flex items-center justify-center border-4 border-gold-300/60 cursor-pointer focus:outline-none">
+          <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full border border-cream-100/50 flex flex-col items-center justify-center text-cream-50">
+            <span class="font-serif text-2xl sm:text-3xl tracking-wider font-semibold">S & M</span>
+            <span class="text-[9px] uppercase tracking-[0.2em] mt-0.5 opacity-90">Abrir</span>
+          </div>
+        </button>
+
+        <p class="mt-6 text-xs sm:text-sm text-charcoal-700/80 font-light">
+          Tocá el sello para abrir la invitación
+        </p>
+
+        <!-- Opción de abrir con o sin música -->
+        <label class="mt-3 inline-flex items-center gap-2 text-xs text-sage-700 cursor-pointer select-none bg-white/70 px-3 py-1.5 rounded-full border border-gold-300/40">
+          <input type="checkbox" id="start-with-music" checked class="accent-sage-600 rounded">
+          <span>Ingresar con melodía ambiental</span>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- BOTÓN FLOTANTE DE AUDIO Y NAVEGACIÓN RÁPIDA                           -->
+  <!-- ===================================================================== -->
+  <div class="fixed bottom-5 right-5 z-40 flex items-center gap-2">
+    <button id="music-toggle-btn" title="Activar o pausar música ambiental" class="w-11 h-11 rounded-full bg-white/90 backdrop-blur-md shadow-lg border border-gold-300 text-gold-600 hover:bg-gold-500 hover:text-white transition-all flex items-center justify-center">
+      <i id="music-icon" class="fa-solid fa-volume-xmark text-sm"></i>
+    </button>
+    <a href="#rsvp" class="px-4 py-2.5 rounded-full bg-sage-700 text-cream-50 text-xs font-medium tracking-wider uppercase shadow-lg hover:bg-sage-800 transition-all">
+      Confirmar
+    </a>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- NOTIFICACIÓN TOAST GLOBAL (Para copiado de CBU/Alias y mensajes)      -->
+  <!-- ===================================================================== -->
+  <div id="toast-notification" class="fixed top-5 left-1/2 -translate-x-1/2 z-50 pointer-events-none opacity-0 -translate-y-4 transition-all duration-300">
+    <div class="bg-charcoal-800 text-cream-50 px-5 py-3 rounded-full shadow-xl border border-gold-400/50 flex items-center gap-2.5 text-xs sm:text-sm font-medium">
+      <i class="fa-solid fa-circle-check text-gold-400"></i>
+      <span id="toast-message">¡Copiado al portapapeles!</span>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- 2. PORTADA HERO ELEGANTE + CUENTA REGRESIVA EN TIEMPO REAL            -->
+  <!-- ===================================================================== -->
+  <header class="relative min-h-screen flex flex-col justify-between items-center text-center px-4 py-12 sm:py-16 bg-gradient-to-b from-cream-100 via-cream-50 to-cream-100 paper-texture overflow-hidden">
+    
+    <!-- Ornamento floral SVG superior -->
+    <div class="w-32 sm:w-40 text-sage-500/60 opacity-80">
+      <svg viewBox="0 0 200 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M100 38C100 22 82 10 60 12C76 18 88 26 100 38Z" fill="currentColor"/>
+        <path d="M100 38C100 22 118 10 140 12C124 18 112 26 100 38Z" fill="currentColor"/>
+        <path d="M100 38C92 26 70 24 45 30C66 32 84 34 100 38Z" fill="currentColor" opacity="0.6"/>
+        <path d="M100 38C108 26 130 24 155 30C134 32 116 34 100 38Z" fill="currentColor" opacity="0.6"/>
+        <circle cx="100" cy="14" r="3" fill="#C8A96E"/>
+      </svg>
+    </div>
+
+    <!-- Bloque Central de Nombres y Participación Familiar -->
+    <div class="max-w-3xl mx-auto my-auto py-8">
+      <p class="uppercase tracking-[0.25em] text-xs sm:text-sm text-sage-700 font-medium mb-4">
+        Con la bendición de nuestras familias
+      </p>
+
+      <!-- Nombres de los padres (Toque tradicional y familiar) -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-8 text-xs sm:text-sm text-charcoal-700/80 font-light italic mb-8 max-w-xl mx-auto">
+        <div>
+          <p>Ricardo Álvarez &amp; Elena Gómez</p>
+        </div>
+        <div>
+          <p>Carlos Pereyra &amp; Beatriz Sosa</p>
+        </div>
+      </div>
+
+      <h1 class="font-serif text-5xl sm:text-7xl md:text-8xl font-normal text-charcoal-900 tracking-tight leading-none">
+        Sofía <span class="italic font-light text-gold-500">&amp;</span> Martín
+      </h1>
+
+      <div class="gold-divider w-48 sm:w-64 mx-auto my-6"></div>
+
+      <p class="font-serif italic text-xl sm:text-2xl text-charcoal-700 max-w-xl mx-auto leading-relaxed px-2">
+        “Tenemos el honor de invitarlos a celebrar la unión de nuestras vidas en una noche llena de amor, familia y gratitud.”
+      </p>
+
+      <!-- Fecha Destacada -->
+      <div class="mt-8 inline-flex flex-col sm:flex-row items-center gap-2 sm:gap-4 px-6 py-3 rounded-2xl bg-white/80 border border-gold-300/60 shadow-sm">
+        <span class="uppercase tracking-[0.2em] text-xs sm:text-sm font-semibold text-sage-800">
+          Sábado 14 de Noviembre de 2026
+        </span>
+        <span class="hidden sm:inline text-gold-400">•</span>
+        <span class="text-xs sm:text-sm text-charcoal-700 font-medium">
+          19:30 hs — Buenos Aires
+        </span>
+      </div>
+
+      <!-- Cuenta Regresiva en Tiempo Real -->
+      <div class="mt-10">
+        <p class="uppercase tracking-[0.22em] text-[11px] text-sage-600 mb-4 font-medium">Faltan</p>
+        <div id="countdown" class="grid grid-cols-4 gap-2.5 sm:gap-5 max-w-md mx-auto">
+          <div class="bg-white/90 rounded-2xl p-3 sm:p-4 border border-gold-300/50 shadow-sm">
+            <span id="cd-days" class="block font-serif text-2xl sm:text-4xl font-semibold text-charcoal-800">00</span>
+            <span class="text-[10px] sm:text-xs uppercase tracking-widest text-sage-600 mt-1 block">Días</span>
+          </div>
+          <div class="bg-white/90 rounded-2xl p-3 sm:p-4 border border-gold-300/50 shadow-sm">
+            <span id="cd-hours" class="block font-serif text-2xl sm:text-4xl font-semibold text-charcoal-800">00</span>
+            <span class="text-[10px] sm:text-xs uppercase tracking-widest text-sage-600 mt-1 block">Horas</span>
+          </div>
+          <div class="bg-white/90 rounded-2xl p-3 sm:p-4 border border-gold-300/50 shadow-sm">
+            <span id="cd-minutes" class="block font-serif text-2xl sm:text-4xl font-semibold text-charcoal-800">00</span>
+            <span class="text-[10px] sm:text-xs uppercase tracking-widest text-sage-600 mt-1 block">Min</span>
+          </div>
+          <div class="bg-white/90 rounded-2xl p-3 sm:p-4 border border-gold-300/50 shadow-sm">
+            <span id="cd-seconds" class="block font-serif text-2xl sm:text-4xl font-semibold text-gold-600">00</span>
+            <span class="text-[10px] sm:text-xs uppercase tracking-widest text-sage-600 mt-1 block">Seg</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Indicador de desplazamiento -->
+    <a href="#historia" class="text-sage-600 hover:text-gold-600 transition-colors flex flex-col items-center gap-1 text-xs tracking-widest uppercase">
+      <span>Descubrir</span>
+      <i class="fa-solid fa-chevron-down animate-bounce mt-1"></i>
+    </a>
+  </header>
+
+  <!-- ===================================================================== -->
+  <!-- 3. SECCIÓN: EL CAMINO QUE NOS TRAJO HASTA AQUÍ                        -->
+  <!-- ===================================================================== -->
+  <section id="historia" class="py-20 sm:py-28 px-4 bg-cream-50">
+    <div class="max-w-4xl mx-auto reveal">
+      <div class="text-center mb-14">
+        <span class="uppercase tracking-[0.25em] text-xs text-gold-600 font-semibold">Nuestra Historia</span>
+        <h2 class="font-serif text-3xl sm:text-5xl text-charcoal-900 mt-2">El camino que nos trajo hasta aquí</h2>
+        <div class="gold-divider w-32 mx-auto mt-4"></div>
+      </div>
+
+      <div class="bg-white rounded-3xl p-8 sm:p-12 shadow-sm border border-cream-300/80 text-center max-w-2xl mx-auto mb-14">
+        <p class="font-serif italic text-xl sm:text-2xl text-charcoal-800 leading-relaxed">
+          “Desde aquella tarde de otoño de 2019 en que nuestros caminos se cruzaron, supimos que estábamos construyendo algo para toda la vida. Hoy, rodeados del cariño de quienes nos vieron crecer y nos acompañaron en cada paso, damos el ‘Sí’ con la ilusión de formar nuestra propia familia.”
+        </p>
+      </div>
+
+      <!-- Hitos familiares en 3 tarjetas limpias -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-cream-100/70 rounded-2xl p-6 border border-gold-300/40 text-center">
+          <div class="w-11 h-11 rounded-full bg-sage-100 text-sage-700 flex items-center justify-center mx-auto mb-4">
+            <i class="fa-solid fa-mug-hot"></i>
+          </div>
+          <span class="text-xs font-semibold uppercase tracking-widest text-gold-600">Abril 2019</span>
+          <h3 class="font-serif text-2xl text-charcoal-800 mt-1 mb-2">El Primer Encuentro</h3>
+          <p class="text-sm text-charcoal-700/80 font-light leading-relaxed">
+            Una charla sin apuros en San Telmo que se extendió hasta el cierre y marcó el inicio de nuestra historia.
+          </p>
+        </div>
+
+        <div class="bg-cream-100/70 rounded-2xl p-6 border border-gold-300/40 text-center">
+          <div class="w-11 h-11 rounded-full bg-sage-100 text-sage-700 flex items-center justify-center mx-auto mb-4">
+            <i class="fa-solid fa-house-chimney-heart"></i>
+          </div>
+          <span class="text-xs font-semibold uppercase tracking-widest text-gold-600">Octubre 2022</span>
+          <h3 class="font-serif text-2xl text-charcoal-800 mt-1 mb-2">Nuestro Hogar</h3>
+          <p class="text-sm text-charcoal-700/80 font-light leading-relaxed">
+            Abrimos las puertas de nuestra primera casa, escenario de domingos en familia y sobremesas inolvidables.
+          </p>
+        </div>
+
+        <div class="bg-cream-100/70 rounded-2xl p-6 border border-gold-300/40 text-center">
+          <div class="w-11 h-11 rounded-full bg-sage-100 text-sage-700 flex items-center justify-center mx-auto mb-4">
+            <i class="fa-solid fa-ring"></i>
+          </div>
+          <span class="text-xs font-semibold uppercase tracking-widest text-gold-600">Diciembre 2025</span>
+          <h3 class="font-serif text-2xl text-charcoal-800 mt-1 mb-2">La Propuesta</h3>
+          <p class="text-sm text-charcoal-700/80 font-light leading-relaxed">
+            Bajo las estrellas en Villa La Angostura llegó la pregunta más esperada y un “Sí” lleno de emoción.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- 4. SECCIÓN: CEREMONIA Y CELEBRACIÓN (CALENDARIO, MAPS Y WAZE)         -->
+  <!-- ===================================================================== -->
+  <section id="ubicacion" class="py-20 sm:py-28 px-4 bg-cream-100 paper-texture">
+    <div class="max-w-5xl mx-auto reveal">
+      <div class="text-center mb-14">
+        <span class="uppercase tracking-[0.25em] text-xs text-gold-600 font-semibold">Cuándo y Dónde</span>
+        <h2 class="font-serif text-3xl sm:text-5xl text-charcoal-900 mt-2">Ceremonia y Celebración</h2>
+        <div class="gold-divider w-32 mx-auto mt-4"></div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Tarjeta Ceremonia Religiosa -->
+        <div class="bg-white rounded-3xl p-8 sm:p-10 shadow-md border border-gold-300/50 flex flex-col justify-between text-center">
+          <div>
+            <div class="w-14 h-14 rounded-full bg-cream-100 border border-gold-300 text-gold-600 flex items-center justify-center mx-auto mb-5 text-xl">
+              <i class="fa-solid fa-church"></i>
+            </div>
+            <span class="uppercase tracking-[0.2em] text-xs text-sage-700 font-semibold">19:30 hs Puntual</span>
+            <h3 class="font-serif text-3xl text-charcoal-900 mt-1 mb-3">Ceremonia Religiosa</h3>
+            <p class="font-medium text-charcoal-800 mb-1">Parroquia Nuestra Señora del Pilar</p>
+            <p class="text-sm text-charcoal-700/80 font-light mb-6">
+              Junín 1898, Recoleta, Ciudad Autónoma de Buenos Aires
+            </p>
+          </div>
+
+          <div class="space-y-3 pt-4 border-t border-cream-200">
+            <!-- Botón Agendar en Google Calendar / Descargar .ics -->
+            <div class="flex flex-wrap justify-center gap-2">
+              <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Casamiento+Sof%C3%ADa+%26+Mart%C3%ADn+-+Ceremonia&dates=20261114T223000Z/20261114T233000Z&details=Ceremonia+Religiosa+de+Sof%C3%ADa+y+Mart%C3%ADn&location=Parroquia+Nuestra+Se%C3%B1ora+del+Pilar,+Jun%C3%ADn+1898,+CABA" target="_blank" rel="noopener" class="flex-1 min-w-[140px] py-2.5 px-4 rounded-xl bg-sage-700 text-white text-xs font-medium tracking-wider uppercase hover:bg-sage-800 transition-colors flex items-center justify-center gap-2">
+                <i class="fa-regular fa-calendar-plus"></i> Google Cal
+              </a>
+              <button onclick="downloadICS('ceremonia')" class="py-2.5 px-3.5 rounded-xl bg-cream-100 text-sage-800 border border-sage-300 text-xs font-medium hover:bg-cream-200 transition-colors" title="Descargar archivo para Apple / Outlook">
+                <i class="fa-solid fa-download"></i> .ICS
+              </button>
+            </div>
+
+            <!-- Botones Maps y Waze -->
+            <div class="grid grid-cols-2 gap-2">
+              <a href="https://www.google.com/maps/search/?api=1&query=Parroquia+Nuestra+Se%C3%B1ora+del+Pilar+Junin+1898+Buenos+Aires" target="_blank" rel="noopener" class="py-2.5 px-3 rounded-xl border border-gold-300 text-charcoal-800 text-xs font-medium hover:bg-cream-100 transition-colors flex items-center justify-center gap-1.5">
+                <i class="fa-solid fa-location-dot text-gold-600"></i> Google Maps
+              </a>
+              <a href="https://waze.com/ul?q=Junin+1898+Buenos+Aires&navigate=yes" target="_blank" rel="noopener" class="py-2.5 px-3 rounded-xl border border-gold-300 text-charcoal-800 text-xs font-medium hover:bg-cream-100 transition-colors flex items-center justify-center gap-1.5">
+                <i class="fa-brands fa-waze text-sage-700"></i> Ir con Waze
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tarjeta Recepción y Fiesta -->
+        <div class="bg-white rounded-3xl p-8 sm:p-10 shadow-md border border-gold-300/50 flex flex-col justify-between text-center">
+          <div>
+            <div class="w-14 h-14 rounded-full bg-cream-100 border border-gold-300 text-gold-600 flex items-center justify-center mx-auto mb-5 text-xl">
+              <i class="fa-solid fa-champagne-glasses"></i>
+            </div>
+            <span class="uppercase tracking-[0.2em] text-xs text-sage-700 font-semibold">21:00 hs</span>
+            <h3 class="font-serif text-3xl text-charcoal-900 mt-1 mb-3">Recepción y Cena</h3>
+            <p class="font-medium text-charcoal-800 mb-1">Palacio Sans Souci</p>
+            <p class="text-sm text-charcoal-700/80 font-light mb-6">
+              Paz 705, Victoria, San Fernando, Provincia de Buenos Aires
+            </p>
+          </div>
+
+          <div class="space-y-3 pt-4 border-t border-cream-200">
+            <div class="flex flex-wrap justify-center gap-2">
+              <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Casamiento+Sof%C3%ADa+%26+Mart%C3%ADn+-+Recepci%C3%B3n&dates=20261115T000000Z/20261115T073000Z&details=Recepci%C3%B3n,+Cena+y+Fiesta+de+Sof%C3%ADa+y+Mart%C3%ADn&location=Palacio+Sans+Souci,+Paz+705,+Victoria,+Buenos+Aires" target="_blank" rel="noopener" class="flex-1 min-w-[140px] py-2.5 px-4 rounded-xl bg-sage-700 text-white text-xs font-medium tracking-wider uppercase hover:bg-sage-800 transition-colors flex items-center justify-center gap-2">
+                <i class="fa-regular fa-calendar-plus"></i> Google Cal
+              </a>
+              <button onclick="downloadICS('fiesta')" class="py-2.5 px-3.5 rounded-xl bg-cream-100 text-sage-800 border border-sage-300 text-xs font-medium hover:bg-cream-200 transition-colors" title="Descargar archivo para Apple / Outlook">
+                <i class="fa-solid fa-download"></i> .ICS
+              </button>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2">
+              <a href="https://www.google.com/maps/search/?api=1&query=Palacio+Sans+Souci+Paz+705+Victoria+Buenos+Aires" target="_blank" rel="noopener" class="py-2.5 px-3 rounded-xl border border-gold-300 text-charcoal-800 text-xs font-medium hover:bg-cream-100 transition-colors flex items-center justify-center gap-1.5">
+                <i class="fa-solid fa-location-dot text-gold-600"></i> Google Maps
+              </a>
+              <a href="https://waze.com/ul?q=Palacio+Sans+Souci+Victoria+Buenos+Aires&navigate=yes" target="_blank" rel="noopener" class="py-2.5 px-3 rounded-xl border border-gold-300 text-charcoal-800 text-xs font-medium hover:bg-cream-100 transition-colors flex items-center justify-center gap-1.5">
+                <i class="fa-brands fa-waze text-sage-700"></i> Ir con Waze
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- 5. CRONOGRAMA INTERACTIVO DE LA VELADA                                -->
+  <!-- ===================================================================== -->
+  <section id="cronograma" class="py-20 sm:py-28 px-4 bg-cream-50">
+    <div class="max-w-3xl mx-auto reveal">
+      <div class="text-center mb-14">
+        <span class="uppercase tracking-[0.25em] text-xs text-gold-600 font-semibold">Paso a Paso</span>
+        <h2 class="font-serif text-3xl sm:text-5xl text-charcoal-900 mt-2">Programa de la Velada</h2>
+        <p class="text-sm text-charcoal-700/75 mt-2">Tocá cada momento para ver los detalles</p>
+        <div class="gold-divider w-32 mx-auto mt-4"></div>
+      </div>
+
+      <div id="timeline-container" class="relative border-l-2 border-gold-300 ml-4 sm:ml-8 space-y-6">
+        <!-- Los ítems se renderizan y expanden interactivamente con JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- 6. GUÍA DE ETIQUETA / DRESS CODE INTERACTIVO                          -->
+  <!-- ===================================================================== -->
+  <section id="etiqueta" class="py-20 sm:py-28 px-4 bg-sage-800 text-cream-50">
+    <div class="max-w-4xl mx-auto reveal text-center">
+      <span class="uppercase tracking-[0.25em] text-xs text-gold-300 font-semibold">Código de Vestimenta</span>
+      <h2 class="font-serif text-3xl sm:text-5xl text-white mt-2">Etiqueta Formal</h2>
+      <div class="gold-divider w-32 mx-auto my-5"></div>
+      
+      <p class="text-sm sm:text-base text-cream-100/90 max-w-2xl mx-auto font-light leading-relaxed mb-10">
+        Traje oscuro o smoking para ellos; vestido largo o midi elegante para ellas. Queremos que se sientan cómodos y radiantes para disfrutar toda la noche.
+      </p>
+
+      <!-- Paleta interactiva -->
+      <div class="bg-sage-700/50 rounded-3xl p-6 sm:p-10 border border-sage-600">
+        <h3 class="font-serif text-2xl text-gold-300 mb-2">Paleta de Referencia</h3>
+        <p class="text-xs text-cream-200/80 mb-6">Tocá cada círculo de color para ver la recomendación</p>
+
+        <div class="flex flex-wrap justify-center gap-4 sm:gap-6 mb-6" id="color-swatches">
+          <!-- Botones de colores generados por JS -->
+        </div>
+
+        <!-- Panel informativo dinámico del color seleccionado -->
+        <div id="color-info-box" class="bg-sage-800/80 rounded-2xl p-4 max-w-md mx-auto border border-gold-400/30 transition-all">
+          <p id="color-info-title" class="font-serif text-xl text-gold-300">Tonos Tierra y Arena</p>
+          <p id="color-info-desc" class="text-xs sm:text-sm text-cream-100/90 mt-1 font-light">
+            Sugeridos: Ideales para acompañar la estética natural y clásica de la velada.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- 7. CONFIRMACIÓN DE ASISTENCIA (RSVP) INTERACTIVO                      -->
+  <!-- ===================================================================== -->
+  <section id="rsvp" class="py-20 sm:py-28 px-4 bg-cream-100 paper-texture">
+    <div class="max-w-2xl mx-auto reveal">
+      <div class="text-center mb-10">
+        <span class="uppercase tracking-[0.25em] text-xs text-gold-600 font-semibold">Su presencia es nuestro mayor regalo</span>
+        <h2 class="font-serif text-3xl sm:text-5xl text-charcoal-900 mt-2">Confirmación de Asistencia</h2>
+        <p class="text-sm text-charcoal-700/80 mt-2">Por favor, confirmen antes del <strong>15 de Octubre de 2026</strong></p>
+        <div class="gold-divider w-32 mx-auto mt-4"></div>
+      </div>
+
+      <div class="bg-white rounded-3xl p-6 sm:p-10 shadow-lg border border-gold-300/50">
+        <form id="rsvp-form" class="space-y-5" novalidate>
+          <!-- Asistencia -->
+          <div>
+            <label class="block text-xs uppercase tracking-wider font-semibold text-sage-800 mb-2">¿Nos acompañan en este día?</label>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <label class="cursor-pointer">
+                <input type="radio" name="attendance" value="yes" checked class="peer sr-only">
+                <div class="p-3.5 rounded-xl border border-cream-300 peer-checked:border-sage-700 peer-checked:bg-sage-100/60 text-center transition-all">
+                  <span class="text-sm font-medium text-charcoal-800">Asistiremos con alegría</span>
+                </div>
+              </label>
+              <label class="cursor-pointer">
+                <input type="radio" name="attendance" value="no" class="peer sr-only">
+                <div class="p-3.5 rounded-xl border border-cream-300 peer-checked:border-gold-500 peer-checked:bg-cream-100 text-center transition-all">
+                  <span class="text-sm font-medium text-charcoal-700">No podremos asistir</span>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Nombre completo -->
+          <div>
+            <label for="rsvp-name" class="block text-xs uppercase tracking-wider font-semibold text-sage-800 mb-1.5">Nombre y Apellido *</label>
+            <input type="text" id="rsvp-name" required placeholder="Ej: Juan Manuel Pérez y familia" class="w-full px-4 py-3 rounded-xl bg-cream-50 border border-cream-300 focus:border-sage-600 focus:outline-none text-sm">
+            <p id="rsvp-name-error" class="hidden text-xs text-red-600 mt-1">Por favor, ingresá tu nombre y apellido.</p>
+          </div>
+
+          <!-- Campos condicionales si asiste -->
+          <div id="rsvp-attending-fields" class="space-y-5">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="rsvp-guests" class="block text-xs uppercase tracking-wider font-semibold text-sage-800 mb-1.5">Cantidad de personas</label>
+                <select id="rsvp-guests" class="w-full px-4 py-3 rounded-xl bg-cream-50 border border-cream-300 focus:border-sage-600 focus:outline-none text-sm">
+                  <option value="1">1 Invitado</option>
+                  <option value="2" selected>2 Invitados</option>
+                  <option value="3">3 Invitados (Grupo familiar)</option>
+                  <option value="4">4 Invitados (Grupo familiar)</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="rsvp-diet" class="block text-xs uppercase tracking-wider font-semibold text-sage-800 mb-1.5">Menú / Restricciones</label>
+                <select id="rsvp-diet" class="w-full px-4 py-3 rounded-xl bg-cream-50 border border-cream-300 focus:border-sage-600 focus:outline-none text-sm">
+                  <option value="Clásico">Menú Clásico (Sin restricciones)</option>
+                  <option value="Vegetariano">Menú Vegetariano</option>
+                  <option value="Vegano">Menú Vegano</option>
+                  <option value="Celíaco">Menú Sin TACC (Celíaco)</option>
+                  <option value="Infantil">Incluye Menú Infantil</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Traslado -->
+            <div class="bg-cream-50 p-4 rounded-xl border border-cream-200">
+              <label class="flex items-start gap-3 cursor-pointer">
+                <input type="checkbox" id="rsvp-shuttle" class="mt-1 accent-sage-700 w-4 h-4 rounded">
+                <span class="text-xs sm:text-sm text-charcoal-700">
+                  <strong>Solicitar lugar en traslado familiar:</strong> Contaremos con combis privadas desde la Parroquia del Pilar hacia el Palacio Sans Souci y regreso al finalizar.
+                </span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Nota adicional -->
+          <div>
+            <label for="rsvp-notes" class="block text-xs uppercase tracking-wider font-semibold text-sage-800 mb-1.5">Aclaraciones o alergias (opcional)</label>
+            <textarea id="rsvp-notes" rows="2" placeholder="Algún detalle que debamos tener en cuenta..." class="w-full px-4 py-3 rounded-xl bg-cream-50 border border-cream-300 focus:border-sage-600 focus:outline-none text-sm"></textarea>
+          </div>
+
+          <button type="submit" class="w-full py-4 rounded-xl bg-sage-700 hover:bg-sage-800 text-white font-medium text-xs sm:text-sm uppercase tracking-[0.2em] shadow-md transition-all cursor-pointer">
+            Enviar Confirmación
+          </button>
+        </form>
+
+        <!-- Mensaje de confirmación animado -->
+        <div id="rsvp-success" class="hidden text-center py-8 space-y-4">
+          <div class="w-16 h-16 rounded-full bg-sage-100 text-sage-700 flex items-center justify-center mx-auto text-2xl animate-bounce">
+            <i class="fa-solid fa-check"></i>
+          </div>
+          <h3 class="font-serif text-3xl text-charcoal-900">¡Muchas gracias por confirmar!</h3>
+          <p id="rsvp-summary-text" class="text-sm text-charcoal-700/80 max-w-md mx-auto leading-relaxed"></p>
+          <button type="button" onclick="resetRSVP()" class="text-xs text-gold-600 underline hover:text-gold-500 mt-2">
+            Modificar respuesta
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- 8. PLAYLIST COLABORATIVA EN VIVO                                      -->
+  <!-- ===================================================================== -->
+  <section id="musica" class="py-20 sm:py-28 px-4 bg-cream-50">
+    <div class="max-w-3xl mx-auto reveal">
+      <div class="text-center mb-10">
+        <span class="uppercase tracking-[0.25em] text-xs text-gold-600 font-semibold">La Música de la Fiesta</span>
+        <h2 class="font-serif text-3xl sm:text-5xl text-charcoal-900 mt-2">Playlist Colaborativa</h2>
+        <p class="text-sm text-charcoal-700/80 max-w-lg mx-auto mt-2">
+          Queremos que toda la familia y nuestros amigos disfruten la pista. Sugerí esa canción que no puede faltar.
+        </p>
+        <div class="gold-divider w-32 mx-auto mt-4"></div>
+      </div>
+
+      <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-cream-300">
+        <form id="playlist-form" class="flex flex-col sm:flex-row gap-3 mb-6">
+          <input type="text" id="song-title" required placeholder="Nombre de la canción..." class="flex-1 px-4 py-3 rounded-xl bg-cream-50 border border-cream-300 focus:border-sage-600 focus:outline-none text-sm">
+          <input type="text" id="song-artist" required placeholder="Intérprete / Banda..." class="flex-1 px-4 py-3 rounded-xl bg-cream-50 border border-cream-300 focus:border-sage-600 focus:outline-none text-sm">
+          <button type="submit" class="px-6 py-3 rounded-xl bg-gold-500 hover:bg-gold-600 text-white text-xs font-semibold uppercase tracking-wider transition-colors whitespace-nowrap">
+            <i class="fa-solid fa-music mr-1.5"></i> Sumar
+          </button>
+        </form>
+
+        <!-- Lista en vivo -->
+        <div class="space-y-2.5 max-h-64 overflow-y-auto pr-1" id="playlist-items">
+          <!-- Canciones iniciales + agregadas dinámicamente -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- 9. SECCIÓN PRESENTES / LUNA DE MIEL (CON COPIADO DE CBU Y ALIAS)      -->
+  <!-- ===================================================================== -->
+  <section id="presentes" class="py-20 sm:py-28 px-4 bg-cream-100 paper-texture">
+    <div class="max-w-3xl mx-auto reveal text-center">
+      <div class="w-14 h-14 rounded-full bg-white border border-gold-300 text-gold-600 flex items-center justify-center mx-auto mb-4 text-xl shadow-sm">
+        <i class="fa-solid fa-plane-departure"></i>
+      </div>
+      <span class="uppercase tracking-[0.25em] text-xs text-gold-600 font-semibold">Obsequios</span>
+      <h2 class="font-serif text-3xl sm:text-5xl text-charcoal-900 mt-2">Nuestra Luna de Miel</h2>
+      <div class="gold-divider w-32 mx-auto my-5"></div>
+
+      <p class="text-sm sm:text-base text-charcoal-700/90 max-w-xl mx-auto font-light leading-relaxed mb-8">
+        El mejor regalo que podemos recibir es contar con su compañía y su cariño en el inicio de nuestra vida matrimonial. Si además desean tener un presente con nosotros, agradeceremos su colaboración para nuestro viaje de bodas por el Sur Argentino y la Patagonia.
+      </p>
+
+      <!-- Botón desplegable de datos bancarios -->
+      <button id="toggle-bank-btn" onclick="toggleBankCard()" class="px-8 py-3.5 rounded-full bg-charcoal-800 hover:bg-charcoal-900 text-cream-50 text-xs font-medium uppercase tracking-[0.2em] shadow-md transition-all inline-flex items-center gap-2.5">
+        <i class="fa-solid fa-building-columns text-gold-400"></i>
+        <span id="toggle-bank-text">Ver datos bancarios (CBU / Alias)</span>
+      </button>
+
+      <!-- Tarjeta Desplegable con Datos Bancarios Argentinos -->
+      <div id="bank-details-card" class="hidden mt-8 bg-white rounded-3xl p-6 sm:p-8 shadow-lg border border-gold-300/70 max-w-xl mx-auto text-left transition-all">
+        <div class="flex items-center justify-between pb-4 mb-4 border-b border-cream-200">
+          <div>
+            <span class="text-[11px] uppercase tracking-widest text-sage-700 font-semibold">Cuenta en Pesos ($)</span>
+            <h3 class="font-serif text-2xl text-charcoal-900">Banco Galicia</h3>
+          </div>
+          <span class="px-3 py-1 rounded-full bg-cream-100 text-gold-600 text-xs font-medium border border-gold-300/40">
+            Titular: Martín Pereyra
+          </span>
+        </div>
+
+        <div class="space-y-4">
+          <!-- Fila Alias -->
+          <div class="bg-cream-50 p-3.5 rounded-2xl border border-cream-300 flex items-center justify-between gap-3">
+            <div class="overflow-hidden">
+              <span class="block text-[10px] uppercase tracking-widest text-charcoal-700/70">Alias</span>
+              <span id="bank-alias" class="font-mono text-sm sm:text-base font-semibold text-charcoal-900 select-all">SOFIA.MARTIN.BODA</span>
+            </div>
+            <button onclick="copyText('SOFIA.MARTIN.BODA', 'Alias')" class="px-4 py-2 rounded-xl bg-sage-700 hover:bg-sage-800 text-white text-xs font-medium transition-colors flex items-center gap-1.5 shrink-0">
+              <i class="fa-regular fa-copy"></i> Copiar
+            </button>
+          </div>
+
+          <!-- Fila CBU -->
+          <div class="bg-cream-50 p-3.5 rounded-2xl border border-cream-300 flex items-center justify-between gap-3">
+            <div class="overflow-hidden">
+              <span class="block text-[10px] uppercase tracking-widest text-charcoal-700/70">CBU</span>
+              <span id="bank-cbu" class="font-mono text-xs sm:text-sm font-semibold text-charcoal-900 select-all break-all">0070999030004128945120</span>
+            </div>
+            <button onclick="copyText('0070999030004128945120', 'CBU')" class="px-4 py-2 rounded-xl bg-sage-700 hover:bg-sage-800 text-white text-xs font-medium transition-colors flex items-center gap-1.5 shrink-0">
+              <i class="fa-regular fa-copy"></i> Copiar
+            </button>
+          </div>
+        </div>
+
+        <p class="text-xs text-center text-charcoal-700/70 mt-5 italic">
+          Asimismo, dispondremos de un cofre en la recepción del salón para quienes prefieran entregar una tarjeta.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- 10. PREGUNTAS FRECUENTES (ACORDEÓN) + LIBRO DE FIRMAS INTERACTIVO     -->
+  <!-- ===================================================================== -->
+  <section id="detalles-y-firmas" class="py-20 sm:py-28 px-4 bg-cream-50">
+    <div class="max-w-5xl mx-auto reveal grid grid-cols-1 lg:grid-cols-2 gap-12">
+      
+      <!-- Columna Izquierda: Preguntas Frecuentes (Acordeón) -->
+      <div>
+        <span class="uppercase tracking-[0.25em] text-xs text-gold-600 font-semibold">Información Útil</span>
+        <h2 class="font-serif text-3xl sm:text-4xl text-charcoal-900 mt-2 mb-6">Preguntas Frecuentes</h2>
+
+        <div class="space-y-3" id="faq-accordion">
+          <!-- Ítems renderizados por JS -->
+        </div>
+      </div>
+
+      <!-- Columna Derecha: Libro de Firmas Interactivo -->
+      <div>
+        <span class="uppercase tracking-[0.25em] text-xs text-gold-600 font-semibold">Buenos Deseos</span>
+        <h2 class="font-serif text-3xl sm:text-4xl text-charcoal-900 mt-2 mb-6">Libro de Firmas</h2>
+
+        <form id="guestbook-form" class="bg-white p-5 rounded-2xl border border-cream-300 shadow-sm mb-6 space-y-3">
+          <input type="text" id="gb-author" required placeholder="Tu nombre o familia..." class="w-full px-3.5 py-2.5 rounded-xl bg-cream-50 border border-cream-300 focus:border-sage-600 focus:outline-none text-sm">
+          <textarea id="gb-message" rows="2" required placeholder="Escribí un consejo, recuerdo o deseo para los novios..." class="w-full px-3.5 py-2.5 rounded-xl bg-cream-50 border border-cream-300 focus:border-sage-600 focus:outline-none text-sm"></textarea>
+          <button type="submit" class="w-full py-2.5 rounded-xl bg-sage-700 hover:bg-sage-800 text-white text-xs font-medium uppercase tracking-widest transition-colors">
+            Publicar en el Muro
+          </button>
+        </form>
+
+        <!-- Muro de Tarjetas -->
+        <div id="guestbook-wall" class="space-y-3 max-h-80 overflow-y-auto pr-1">
+          <!-- Mensajes iniciales + nuevos -->
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- PIE DE PÁGINA (FOOTER)                                                -->
+  <!-- ===================================================================== -->
+  <footer class="bg-charcoal-900 text-cream-200 py-14 px-4 text-center">
+    <div class="max-w-xl mx-auto">
+      <p class="font-serif text-3xl sm:text-4xl text-white">Sofía <span class="italic text-gold-400">&amp;</span> Martín</p>
+      <div class="gold-divider w-24 mx-auto my-4"></div>
+      <p class="text-xs uppercase tracking-[0.25em] text-sage-300 mb-6">14 de Noviembre de 2026</p>
+      <p class="text-xs text-cream-300/60 font-light">
+        Con todo nuestro cariño, esperamos compartir esta noche inolvidable junto a ustedes.
+      </p>
+    </div>
+  </footer>
+
+  <!-- ===================================================================== -->
+  <!-- LÓGICA INTERACTIVA (JAVASCRIPT)                                       -->
+  <!-- ===================================================================== -->
+  <script>
+    // -----------------------------------------------------------------------
+    // 1. GESTIÓN DE AUDIO AMBIENTAL SUAVE CON TONE.JS (Sin URLs externas)
+    // -----------------------------------------------------------------------
+    let isMusicPlaying = false;
+    let ambientLoop = null;
+    let synth = null;
+
+    async function toggleMusic(forcePlay = null) {
+      const icon = document.getElementById('music-icon');
+      const shouldPlay = forcePlay !== null ? forcePlay : !isMusicPlaying;
+
+      try {
+        if (shouldPlay && !isMusicPlaying) {
+          await Tone.start();
+          if (!synth) {
+            // Sintetizador suave estilo arpa/piano cálido con reverberación
+            const reverb = new Tone.Reverb({ decay: 4, wet: 0.5 }).toDestination();
+            synth = new Tone.PolySynth(Tone.Synth, {
+              oscillator: { type: 'sine' },
+              envelope: { attack: 0.8, decay: 1.5, sustain: 0.4, release: 2.5 }
+            }).connect(reverb);
+            synth.volume.value = -16; // Volumen ambiental muy sutil
+
+            // Progresión armónica romántica (Do mayor / La menor / Fa mayor / Sol mayor)
+            const chords = [
+              ['C4', 'E4', 'G4', 'B4'],
+              ['A3', 'C4', 'E4', 'G4'],
+              ['F3', 'A3', 'C4', 'E4'],
+              ['G3', 'B3', 'D4', 'F4']
+            ];
+            let step = 0;
+            ambientLoop = new Tone.Loop((time) => {
+              synth.triggerAttackRelease(chords[step % chords.length], '2n', time);
+              step++;
+            }, '1m');
+          }
+          Tone.Transport.bpm.value = 68;
+          Tone.Transport.start();
+          ambientLoop.start(0);
+          isMusicPlaying = true;
+          icon.className = 'fa-solid fa-volume-high text-sm';
+        } else if (!shouldPlay && isMusicPlaying) {
+          Tone.Transport.pause();
+          isMusicPlaying = false;
+          icon.className = 'fa-solid fa-volume-xmark text-sm';
+        }
+      } catch (err) {
+        console.warn('Audio no iniciado:', err);
+      }
+    }
+
+    document.getElementById('music-toggle-btn').addEventListener('click', () => toggleMusic());
+
+    // -----------------------------------------------------------------------
+    // 2. APERTURA DEL SOBRE CON SELLO DE LACRE
+    // -----------------------------------------------------------------------
+    document.getElementById('open-envelope-btn').addEventListener('click', () => {
+      const screen = document.getElementById('envelope-screen');
+      const withMusic = document.getElementById('start-with-music').checked;
+
+      screen.classList.add('envelope-open');
+      if (withMusic) {
+        toggleMusic(true);
+      }
+
+      setTimeout(() => {
+        screen.classList.add('envelope-hidden');
+        triggerReveal();
+      }, 750);
+    });
+
+    // -----------------------------------------------------------------------
+    // 3. CUENTA REGRESIVA EN TIEMPO REAL (14 de Noviembre de 2026 - 19:30 hs)
+    // -----------------------------------------------------------------------
+    // Nota: Si la fecha actual supera 2026, ajusta dinámicamente o mantiene el objetivo.
+    const weddingDate = new Date('2026-11-14T19:30:00-03:00').getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      let distance = weddingDate - now;
+
+      // Si ya pasó la fecha, mostramos 00 en todos los contadores
+      if (distance < 0) distance = 0;
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById('cd-days').textContent = String(days).padStart(2, '0');
+      document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
+      document.getElementById('cd-minutes').textContent = String(minutes).padStart(2, '0');
+      document.getElementById('cd-seconds').textContent = String(seconds).padStart(2, '0');
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // -----------------------------------------------------------------------
+    // 4. GENERADOR DE ARCHIVOS .ICS PARA CALENDARIO (APPLE / OUTLOOK)
+    // -----------------------------------------------------------------------
+    function downloadICS(type) {
+      const events = {
+        ceremonia: {
+          title: 'Casamiento Sofía & Martín - Ceremonia Religiosa',
+          start: '20261114T193000',
+          end: '20261114T203000',
+          location: 'Parroquia Nuestra Señora del Pilar, Junín 1898, CABA',
+          desc: 'Ceremonia Religiosa de Sofía y Martín.'
+        },
+        fiesta: {
+          title: 'Casamiento Sofía & Martín - Recepción y Cena',
+          start: '20261114T210000',
+          end: '20261115T043000',
+          location: 'Palacio Sans Souci, Paz 705, Victoria, Buenos Aires',
+          desc: 'Recepción, cena y celebración de Sofía y Martín.'
+        }
+      };
+
+      const ev = events[type];
+      const icsContent = [
+        'BEGIN:VCALENDAR',
+        'VERSION:2.0',
+        'PRODID:-//Sofía & Martín//Boda//ES',
+        'BEGIN:VEVENT',
+        `DTSTART:${ev.start}`,
+        `DTEND:${ev.end}`,
+        `SUMMARY:${ev.title}`,
+        `DESCRIPTION:${ev.desc}`,
+        `LOCATION:${ev.location}`,
+        'END:VEVENT',
+        'END:VCALENDAR'
+      ].join('\r\n');
+
+      const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = `Boda-Sofia-Martin-${type}.ics`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      showToast('Evento descargado para tu calendario');
+    }
+
+    // -----------------------------------------------------------------------
+    // 5. CRONOGRAMA INTERACTIVO DESPLEGABLE
+    // -----------------------------------------------------------------------
+    const scheduleData = [
+      {
+        time: '19:30 hs',
+        title: 'Ceremonia Religiosa',
+        icon: 'fa-ring',
+        detail: 'Pedimos puntualidad para acompañar la entrada de los novios y la bendición de los anillos en la Parroquia del Pilar.'
+      },
+      {
+        time: '21:00 hs',
+        title: 'Recepción en los Jardines',
+        icon: 'fa-martini-glass-citrus',
+        detail: 'Cóctel de bienvenida al aire libre con música acústica en vivo y recepción gastronómica.'
+      },
+      {
+        time: '22:15 hs',
+        title: 'Cena de Gala',
+        icon: 'fa-utensils',
+        detail: 'Ingreso al salón principal del Palacio Sans Souci para compartir el banquete familiar.'
+      },
+      {
+        time: '00:00 hs',
+        title: 'Brindis, Vals y Apertura de Pista',
+        icon: 'fa-champagne-glasses',
+        detail: 'Palabras de nuestras familias, brindis por el futuro y comienzo del baile.'
+      },
+      {
+        time: '04:00 hs',
+        title: 'Mesa Dulce y Despedida',
+        icon: 'fa-cake-candles',
+        detail: 'Cierre de la velada con café de especialidad, pastelería artesanal y despedida.'
+      }
+    ];
+
+    const timelineContainer = document.getElementById('timeline-container');
+    scheduleData.forEach((item, index) => {
+      const div = document.createElement('div');
+      div.className = 'relative pl-8 sm:pl-10 cursor-pointer group';
+      div.innerHTML = `
+        <div class="absolute -left-[11px] top-1.5 w-5 h-5 rounded-full bg-cream-50 border-2 border-gold-500 group-hover:bg-gold-500 transition-colors"></div>
+        <div class="bg-white rounded-2xl p-5 border border-cream-300 shadow-sm hover:border-gold-400 transition-all">
+          <div class="flex items-center justify-between">
+            <div>
+              <span class="text-xs font-semibold uppercase tracking-widest text-gold-600">${item.time}</span>
+              <h3 class="font-serif text-2xl text-charcoal-900 mt-0.5">${item.title}</h3>
+            </div>
+            <div class="w-9 h-9 rounded-full bg-cream-100 text-sage-700 flex items-center justify-center">
+              <i class="fa-solid ${item.icon} text-sm"></i>
+            </div>
+          </div>
+          <p class="timeline-detail ${index === 0 ? 'block' : 'hidden'} text-sm text-charcoal-700/80 font-light mt-3 pt-3 border-t border-cream-200 leading-relaxed">
+            ${item.detail}
+          </p>
+        </div>
+      `;
+      div.addEventListener('click', () => {
+        const detail = div.querySelector('.timeline-detail');
+        detail.classList.toggle('hidden');
+      });
+      timelineContainer.appendChild(div);
+    });
+
+    // -----------------------------------------------------------------------
+    // 6. PALETA DE COLORES INTERACTIVA (DRESS CODE)
+    // -----------------------------------------------------------------------
+    const dressColors = [
+      {
+        name: 'Tonos Tierra y Arena',
+        hex: '#D2B48C',
+        status: 'Sugerido',
+        desc: 'Ideales para acompañar la estética natural y clásica de la velada.'
+      },
+      {
+        name: 'Azul Noche / Marino',
+        hex: '#1E2D3D',
+        status: 'Sugerido',
+        desc: 'Un clásico atemporal tanto para trajes como para vestidos largos.'
+      },
+      {
+        name: 'Borgoña / Terracota',
+        hex: '#7A3038',
+        status: 'Sugerido',
+        desc: 'Aporta calidez y distinción en una celebración nocturna.'
+      },
+      {
+        name: 'Verde Salvia',
+        hex: '#7D9283',
+        status: 'Reservado Cortejo',
+        desc: 'Reservado exclusivamente para las damas de honor y madres de los novios.'
+      },
+      {
+        name: 'Blanco / Marfil',
+        hex: '#FAF8F5',
+        status: 'Reservado Novia',
+        desc: 'Reservado exclusivamente para la novia. Agradecemos evitar tonos similares.'
+      }
+    ];
+
+    const swatchesContainer = document.getElementById('color-swatches');
+    dressColors.forEach((c, idx) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = `flex flex-col items-center gap-2 group focus:outline-none`;
+      btn.innerHTML = `
+        <span class="w-12 h-12 sm:w-14 sm:h-14 rounded-full border-2 ${idx === 0 ? 'border-gold-300 scale-110' : 'border-white/40'} shadow-md transition-transform group-hover:scale-110 flex items-center justify-center" style="background-color: ${c.hex};">
+          ${c.status !== 'Sugerido' ? '<i class="fa-solid fa-lock text-xs text-charcoal-800/70"></i>' : ''}
+        </span>
+        <span class="text-[11px] text-cream-200 font-light">${c.status}</span>
+      `;
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#color-swatches span:first-child').forEach(el => {
+          el.classList.remove('border-gold-300', 'scale-110');
+          el.classList.add('border-white/40');
+        });
+        btn.querySelector('span:first-child').classList.add('border-gold-300', 'scale-110');
+        document.getElementById('color-info-title').textContent = `${c.name} (${c.status})`;
+        document.getElementById('color-info-desc').textContent = c.desc;
+      });
+      swatchesContainer.appendChild(btn);
+    });
+
+    // -----------------------------------------------------------------------
+    // 7. FORMULARIO RSVP INTERACTIVO
+    // -----------------------------------------------------------------------
+    const attendanceRadios = document.querySelectorAll('input[name="attendance"]');
+    const attendingFields = document.getElementById('rsvp-attending-fields');
+
+    attendanceRadios.forEach(radio => {
+      radio.addEventListener('change', (e) => {
+        if (e.target.value === 'yes') {
+          attendingFields.classList.remove('hidden');
+        } else {
+          attendingFields.classList.add('hidden');
+        }
+      });
+    });
+
+    document.getElementById('rsvp-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const nameInput = document.getElementById('rsvp-name');
+      const nameError = document.getElementById('rsvp-name-error');
+
+      if (!nameInput.value.trim()) {
+        nameError.classList.remove('hidden');
+        nameInput.focus();
+        return;
+      }
+      nameError.classList.add('hidden');
+
+      const attending = document.querySelector('input[name="attendance"]:checked').value === 'yes';
+      const guests = document.getElementById('rsvp-guests').value;
+      const diet = document.getElementById('rsvp-diet').value;
+      const shuttle = document.getElementById('rsvp-shuttle').checked;
+
+      const summary = attending
+        ? `Registramos a ${nameInput.value.trim()} (${guests} ${guests === '1' ? 'persona' : 'personas'}, ${diet}${shuttle ? ', con lugar en traslado familiar' : ''}). ¡Nos emociona compartir este día con ustedes!`
+        : `Registramos la respuesta de ${nameInput.value.trim()}. Lamentamos que no puedan acompañarnos, pero agradecemos mucho su cariño.`;
+
+      document.getElementById('rsvp-summary-text').textContent = summary;
+      document.getElementById('rsvp-form').classList.add('hidden');
+      document.getElementById('rsvp-success').classList.remove('hidden');
+      showToast('¡Confirmación enviada con éxito!');
+    });
+
+    function resetRSVP() {
+      document.getElementById('rsvp-success').classList.add('hidden');
+      document.getElementById('rsvp-form').classList.remove('hidden');
+    }
+
+    // -----------------------------------------------------------------------
+    // 8. PLAYLIST COLABORATIVA EN VIVO
+    // -----------------------------------------------------------------------
+    const initialSongs = [
+      { title: 'Stand By Me', artist: 'Ben E. King', by: 'Los Novios' },
+      { title: 'De Música Ligera', artist: 'Soda Stereo', by: 'Tío Roberto' },
+      { title: 'Perfect', artist: 'Ed Sheeran', by: 'Prima Camila' }
+    ];
+
+    function renderPlaylist() {
+      const container = document.getElementById('playlist-items');
+      container.innerHTML = '';
+      initialSongs.forEach(song => {
+        const item = document.createElement('div');
+        item.className = 'flex items-center justify-between p-3 rounded-xl bg-cream-50 border border-cream-200';
+        item.innerHTML = `
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-sage-100 text-sage-700 flex items-center justify-center text-xs">
+              <i class="fa-solid fa-music"></i>
+            </div>
+            <div>
+              <p class="text-sm font-medium text-charcoal-900">${escapeHTML(song.title)}</p>
+              <p class="text-xs text-charcoal-700/70">${escapeHTML(song.artist)}</p>
+            </div>
+          </div>
+          <span class="text-[11px] text-gold-600 font-medium bg-white px-2.5 py-1 rounded-full border border-cream-300">
+            ${escapeHTML(song.by)}
+          </span>
+        `;
+        container.appendChild(item);
+      });
+    }
+    renderPlaylist();
+
+    document.getElementById('playlist-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const title = document.getElementById('song-title');
+      const artist = document.getElementById('song-artist');
+      if (!title.value.trim() || !artist.value.trim()) return;
+
+      initialSongs.unshift({
+        title: title.value.trim(),
+        artist: artist.value.trim(),
+        by: 'Invitado'
+      });
+      title.value = '';
+      artist.value = '';
+      renderPlaylist();
+      showToast('¡Canción agregada a la lista de la fiesta!');
+    });
+
+    // -----------------------------------------------------------------------
+    // 9. PRESENTES: DESPLEGABLE Y COPIADO AL PORTAPAPELES (execCommand)
+    // -----------------------------------------------------------------------
+    function toggleBankCard() {
+      const card = document.getElementById('bank-details-card');
+      const btnText = document.getElementById('toggle-bank-text');
+      const isHidden = card.classList.contains('hidden');
+
+      if (isHidden) {
+        card.classList.remove('hidden');
+        btnText.textContent = 'Ocultar datos bancarios';
+      } else {
+        card.classList.add('hidden');
+        btnText.textContent = 'Ver datos bancarios (CBU / Alias)';
+      }
+    }
+
+    function copyText(text, label) {
+      const tempInput = document.createElement('textarea');
+      tempInput.value = text;
+      tempInput.style.position = 'fixed';
+      tempInput.style.opacity = '0';
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      try {
+        document.execCommand('copy');
+        showToast(`¡${label} copiado al portapapeles!`);
+      } catch (err) {
+        showToast(`No se pudo copiar automáticamente`);
+      }
+      document.body.removeChild(tempInput);
+    }
+
+    // -----------------------------------------------------------------------
+    // 10. PREGUNTAS FRECUENTES (ACORDEÓN) Y LIBRO DE FIRMAS
+    // -----------------------------------------------------------------------
+    const faqData = [
+      {
+        q: '¿Los niños están invitados?',
+        a: 'Los niños de la familia son muy bienvenidos. Contaremos con menú infantil y un espacio recreativo cuidado; solo les pedimos indicarlo al confirmar asistencia.'
+      },
+      {
+        q: '¿Hay estacionamiento en la Parroquia y el Salón?',
+        a: 'Sí, el Palacio Sans Souci dispone de estacionamiento privado y servicio de valet parking sin cargo dentro del predio. En Recoleta sugerimos llegar con 15 minutos de antelación.'
+      },
+      {
+        q: '¿Cómo funciona el traslado entre la Iglesia y el Salón?',
+        a: 'Dispondremos de combis privadas que saldrán desde la puerta de la Parroquia del Pilar a las 20:30 hs hacia Victoria, con regreso a las 04:15 hs. Pueden reservar lugar en el formulario de asistencia.'
+      },
+      {
+        q: '¿Cómo compartimos las fotos que saquemos durante la fiesta?',
+        a: 'En cada mesa encontrarán una tarjeta con un código QR que les permitirá subir todas sus fotos y videos en calidad original a nuestro álbum familiar compartido.'
+      }
+    ];
+
+    const faqContainer = document.getElementById('faq-accordion');
+    faqData.forEach((item, idx) => {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'bg-white rounded-2xl border border-cream-300 overflow-hidden';
+      wrapper.innerHTML = `
+        <button type="button" class="w-full px-5 py-4 text-left flex items-center justify-between gap-3 font-medium text-sm text-charcoal-900 hover:bg-cream-50 transition-colors">
+          <span>${item.q}</span>
+          <i class="fa-solid fa-chevron-down text-xs text-gold-600 transition-transform duration-300 ${idx === 0 ? 'rotate-180' : ''}"></i>
+        </button>
+        <div class="faq-answer ${idx === 0 ? 'block' : 'hidden'} px-5 pb-4 text-xs sm:text-sm text-charcoal-700/80 font-light leading-relaxed border-t border-cream-100 pt-3">
+          ${item.a}
+        </div>
+      `;
+      const btn = wrapper.querySelector('button');
+      const ans = wrapper.querySelector('.faq-answer');
+      const icon = wrapper.querySelector('i');
+
+      btn.addEventListener('click', () => {
+        ans.classList.toggle('hidden');
+        icon.classList.toggle('rotate-180');
+      });
+      faqContainer.appendChild(wrapper);
+    });
+
+    // Libro de Firmas
+    const guestbookEntries = [
+      {
+        author: 'Abuela Rosa',
+        message: 'Qué emoción verlos dar este paso tan importante. Que el respeto, la paciencia y la alegría acompañen siempre su hogar. Los quiero con el alma.'
+      },
+      {
+        author: 'Familia Martínez',
+        message: '¡Felicidades queridos Sofi y Tincho! Ya estamos contando los días para brindar todos juntos en noviembre.'
+      }
+    ];
+
+    function renderGuestbook() {
+      const wall = document.getElementById('guestbook-wall');
+      wall.innerHTML = '';
+      guestbookEntries.forEach(entry => {
+        const card = document.createElement('div');
+        card.className = 'bg-white p-4 rounded-2xl border border-gold-300/40 shadow-sm';
+        card.innerHTML = `
+          <p class="font-serif italic text-base sm:text-lg text-charcoal-800 leading-snug">“${escapeHTML(entry.message)}”</p>
+          <p class="text-xs font-semibold uppercase tracking-wider text-sage-700 mt-2">— ${escapeHTML(entry.author)}</p>
+        `;
+        wall.appendChild(card);
+      });
+    }
+    renderGuestbook();
+
+    document.getElementById('guestbook-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const author = document.getElementById('gb-author');
+      const message = document.getElementById('gb-message');
+      if (!author.value.trim() || !message.value.trim()) return;
+
+      guestbookEntries.unshift({
+        author: author.value.trim(),
+        message: message.value.trim()
+      });
+      author.value = '';
+      message.value = '';
+      renderGuestbook();
+      showToast('¡Tu mensaje quedó guardado en el Libro de Firmas!');
+    });
+
+    // -----------------------------------------------------------------------
+    // UTILIDADES: TOAST, ESCAPE HTML Y ANIMACIONES AL SCROLL
+    // -----------------------------------------------------------------------
+    let toastTimeout;
+    function showToast(msg) {
+      const toast = document.getElementById('toast-notification');
+      document.getElementById('toast-message').textContent = msg;
+      toast.classList.remove('opacity-0', '-translate-y-4');
+      toast.classList.add('opacity-100', 'translate-y-0');
+
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.add('opacity-0', '-translate-y-4');
+        toast.classList.remove('opacity-100', 'translate-y-0');
+      }, 3000);
+    }
+
+    function escapeHTML(str) {
+      return str.replace(/[&<>'"]/g, tag => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        "'": '&#39;',
+        '"': '&quot;'
+      }[tag]));
+    }
+
+    function triggerReveal() {
+      const reveals = document.querySelectorAll('.reveal');
+      const windowHeight = window.innerHeight;
+      reveals.forEach(el => {
+        const top = el.getBoundingClientRect().top;
+        if (top < windowHeight - 80) {
+          el.classList.add('active');
+        }
+      });
+    }
+    window.addEventListener('scroll', triggerReveal);
+    window.addEventListener('load', triggerReveal);
+  </script>
+</body>
+</html>
