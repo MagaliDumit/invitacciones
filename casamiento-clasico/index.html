@@ -1,336 +1,338 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nos casamos - Camila & Federico</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Great+Vibes&family=Montserrat:wght@300;400;500;600&family=Pinyon+Script&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Camila & Federico — Clásico</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+:root { --bg-primary:#e8eaf0;--bg-secondary:#d9dde6;--text-main:#303038;--text-muted:#4a4a52;--accent:#8f182d;--card-bg:rgba(255,245,247,0.75);--border-color:rgba(158,27,50,0.3);--radius:12px; }
+body{background:var(--bg-primary);color:var(--text-main);font-family:'Cormorant Garamond',serif;line-height:1.7;margin:0;}
+h1,h2,h3,.serif{font-family:'Cinzel',serif;font-weight:400;letter-spacing:.08em;color:var(--accent);}
+.card{background:var(--card-bg);border:1px solid var(--border-color);border-radius:var(--radius);padding:2rem;box-shadow:0 10px 30px rgba(55,55,65,.1);}
+.btn{background:var(--accent);color:#fff;border:1px solid var(--accent);padding:.85rem 2rem;border-radius:var(--radius);text-transform:uppercase;letter-spacing:.15em;font-size:.78rem;cursor:pointer;transition:all .3s;}
+.btn:hover{background:transparent;color:var(--accent);}
+.carousel{position:relative;max-width:600px;margin:2rem auto;overflow:hidden;border-radius:var(--radius);}
+.carousel-track{display:flex;transition:transform .5s ease;}
+.carousel-track img{min-width:100%;height:360px;object-fit:cover;}
+.carousel-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.4);color:#fff;border:none;padding:.5rem .8rem;cursor:pointer;border-radius:4px;}
+.carousel-btn.prev{left:10px;} .carousel-btn.next{right:10px;}
+.carousel-dots{text-align:center;margin-top:1rem;}
+.carousel-dots span{display:inline-block;width:10px;height:10px;margin:0 4px;border-radius:50%;background:var(--border-color);cursor:pointer;}
+.carousel-dots span.active{background:var(--accent);}
+body { padding: 0; }
+.section-pad { padding: 4rem 1rem; }
+.hero { text-align: center; padding: 5rem 1rem; }
+</style>
 </head>
 <body>
 
-<!-- FONDO -->
-<div id="envelope-overlay">
-  <main class="scene">
-    <div class="envelope-wrapper" id="envelope" role="button" tabindex="0" aria-label="Abrir invitación">
-      <div class="envelope">
-        <div class="envelope-back">
-          <div class="invitation-card">
-            <span class="card-small">NOS CASAMOS</span>
-            <div class="card-name">Camila &amp; Federico</div>
-            <div class="card-line"></div>
-            <span class="card-date">24 · 04 · 2027</span>
-          </div>
-          <div class="bow">
-            <div class="bow-left"></div>
-            <div class="bow-right"></div>
-            <div class="bow-center"></div>
-          </div>
-        </div>
-        <div class="flap"></div>
-      </div>
-      <div class="click-hint">Toca el sobre para abrir</div>
+<nav class="navbar navbar-expand-lg" style="background:var(--bg-secondary);">
+  <div class="container">
+    <a class="navbar-brand serif" href="#" style="color:var(--accent);">S & M</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu"><span class="navbar-toggler-icon"></span></button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="#historia">Historia</a></li>
+        <li class="nav-item"><a class="nav-link" href="#ubicacion">Ubicación</a></li>
+        <li class="nav-item"><a class="nav-link" href="#galeria">Fotos</a></li>
+        <li class="nav-item"><a class="nav-link" href="#rsvp">Confirmación de asistencia</a></li>
+      </ul>
     </div>
-  </main>
-</div>
-
-<main class="card-container">
-  <div class="card-content">
-
-    <!-- 1. PORTADA -->
-    <header class="section header-section">
-      <div class="glass-card glass-card--full">
-        <p class="subtitle">Camila &amp; Federico</p>
-        <h1 class="title">¡Nos casamos!</h1>
-        <div class="divider">✦ ✦ ✦</div>
-        <p class="quote">Con la bendición de nuestras familias y el corazón lleno de gratitud, tenemos el honor de invitarlos a celebrar la unión de nuestras vidas.</p>
-        <p class="highlight" style="margin-top:16px;">Sábado 24 de Abril de 2027 — 20:00 hs</p>
-        <div class="btn-group">
-          <a href="#rsvp" class="btn btn-primary">Confirmar asistencia</a>
-        </div>
-      </div>
-    </header>
-
-    <!-- CUENTA REGRESIVA -->
-    <section class="section countdown-section">
-      <div class="glass-card">
-        <h2>Faltan</h2>
-        <div id="timer" class="timer-grid">
-          <div class="time-box"><span class="time-num" id="days">0</span><span class="time-label">Días</span></div>
-          <div class="time-sep">:</div>
-          <div class="time-box"><span class="time-num" id="hours">00</span><span class="time-label">Horas</span></div>
-          <div class="time-sep">:</div>
-          <div class="time-box"><span class="time-num" id="minutes">00</span><span class="time-label">Min</span></div>
-          <div class="time-sep">:</div>
-          <div class="time-box"><span class="time-num" id="seconds">00</span><span class="time-label">Sec</span></div>
-        </div>
-        <p class="date-note">24 de Abril de 2027</p>
-      </div>
-    </section>
-
-    <!-- 2. NUESTRA HISTORIA -->
-    <section class="section">
-      <div class="glass-card">
-        <h2>El camino que nos trajo hasta aquí</h2>
-        <p class="text">Desde aquel 2019 en que nuestros caminos se cruzaron, supimos que estábamos construyendo algo para toda la vida. Hoy, rodeados del cariño de quienes nos vieron crecer y nos acompañaron en cada paso, damos el "Sí" con la ilusión de formar nuestra propia familia. Su presencia hará que este día sea verdaderamente inolvidable.</p>
-      </div>
-    </section>
-
-    <!-- 3. CUÁNDO Y DÓNDE -->
-    <section class="section">
-      <div class="glass-card">
-        <h2>Ceremonia y Celebración</h2>
-        <h3>Ceremonia Religiosa / Civil</h3>
-        <p class="text">Los esperamos a las <strong>19:30 hs</strong> en <strong>Basílica del Santísimo Sacramento</strong> (Calle Ejemplo 456, CABA) para compartir el momento más significativo de nuestra unión.</p>
-        <div class="btn-group">
-          <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Ceremonia+Camila+y+Federico&dates=20270424T193000/20270424T203000" target="_blank" rel="noopener" class="btn btn-small">Agendar en calendario</a>
-          <a href="https://maps.google.com/?q=Basílica+del+Santísimo+Sacramento,+CABA" target="_blank" rel="noopener" class="btn btn-small">Ver ubicación (Maps)</a>
-          <a href="https://waze.com/ul?q=Basílica+del+Santísimo+Sacramento,+CABA" target="_blank" rel="noopener" class="btn btn-small">Ir con Waze</a>
-        </div>
-
-        <h3 style="margin-top:20px;">Recepción y Cena</h3>
-        <p class="text">Finalizada la ceremonia, celebraremos juntos a partir de las <strong>21:00 hs</strong> en <strong>Estancia La Paz</strong> (Ruta 8 Km 45, Pilar).</p>
-        <div class="btn-group">
-          <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Recepcion+Camila+y+Federico&dates=20270424T210000/20270425T040000" target="_blank" rel="noopener" class="btn btn-small">Agendar en calendario</a>
-          <a href="https://maps.google.com/?q=Estancia+La+Paz,+Pilar" target="_blank" rel="noopener" class="btn btn-small">Ver ubicación (Maps)</a>
-          <a href="https://waze.com/ul?q=Estancia+La+Paz,+Pilar" target="_blank" rel="noopener" class="btn btn-small">Ir con Waze</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- 4. CRONOGRAMA -->
-    <section class="section">
-      <div class="glass-card">
-        <h2>Programa de la velada</h2>
-        <ul class="timeline">
-          <li><span class="t-time">19:30 hs</span><span class="t-desc">Ceremonia: bendición de los anillos y votos matrimoniales.</span></li>
-          <li><span class="t-time">21:00 hs</span><span class="t-desc">Recepción de bienvenida: cóctel en los jardines y saludo a los invitados.</span></li>
-          <li><span class="t-time">22:15 hs</span><span class="t-desc">Cena de gala: banquete principal en el salón.</span></li>
-          <li><span class="t-time">00:00 hs</span><span class="t-desc">Brindis y Vals: palabras de las familias, corte de torta y apertura del baile.</span></li>
-          <li><span class="t-time">04:00 hs</span><span class="t-desc">Despedida: mesa dulce, café y cierre de la celebración.</span></li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- 5. DRESS CODE -->
-    <section class="section">
-      <div class="glass-card">
-        <h2>Etiqueta</h2>
-        <p class="highlight">Elegante / Formal</p>
-        <p class="text">Les agradecemos amablemente reservar el color <strong>blanco</strong> (y sus variantes en marfil o natural) exclusivamente para la novia, así como el <strong>azul marino</strong> para el cortejo familiar.</p>
-        <div class="btn-group">
-          <a href="#" class="btn btn-small">Ver sugerencias de vestimenta</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- 6. RSVP -->
-    <section class="section" id="rsvp">
-      <div class="glass-card">
-        <h2>Confirmación de Asistencia</h2>
-        <p class="text">Agradecemos profundamente que nos confirmen su presencia antes del <strong>24 de Marzo de 2027</strong> para poder recibirlos con todas las comodidades que merecen.</p>
-        <p class="form-note">Completar con: nombre y apellido de los invitados, asistencia, requerimientos alimentarios especiales y si requieren lugar en el traslado.</p>
-        <div class="btn-group">
-          <a href="https://forms.gle/" target="_blank" rel="noopener" class="btn btn-primary">Confirmar asistencia</a>
-        </div>
-        <p class="note" style="margin-top:14px;">Muchas gracias por su respuesta. Será un verdadero honor compartir este día tan especial con ustedes.</p>
-      </div>
-    </section>
-
-    <!-- 7. MÚSICA -->
-    <section class="section">
-      <div class="glass-card">
-        <h2>La música de nuestra fiesta</h2>
-        <p class="text">Queremos que toda la familia y nuestros amigos disfruten de la pista de baile. Los invitamos a sugerir esa canción especial que no puede faltar en nuestra celebración.</p>
-        <div class="btn-group">
-          <a href="https://forms.gle/" target="_blank" rel="noopener" class="btn">Enviar sugerencia</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- 8. REGALOS -->
-    <section class="section">
-      <div class="glass-card">
-        <h2>Presentes</h2>
-        <p class="text">El mejor regalo que podemos recibir es contar con su compañía y su cariño en el inicio de nuestra vida matrimonial. Si además desean tener un presente con nosotros, agradeceremos su colaboración para nuestro viaje de bodas a <strong>Europa</strong>.</p>
-        <details class="alias-drop">
-          <summary class="alias-summary">Ver datos para transferencia</summary>
-          <div class="alias-box">
-            <p><strong>Titular:</strong> Camila Rodríguez</p>
-            <p><strong>Entidad Bancaria:</strong> Banco Galicia</p>
-            <p><strong>Alias:</strong> NOVIOS.BODA.2027 <button type="button" class="copy-btn" data-copy="NOVIOS.BODA.2027">Copiar</button></p>
-            <p><strong>CBU:</strong> 0000003100012345678901 <button type="button" class="copy-btn" data-copy="0000003100012345678901">Copiar</button></p>
-          </div>
-        </details>
-        <p class="note" style="margin-top:12px;">Asimismo, dispondremos de un cofre en la recepción del salón para quienes prefieran entregar una tarjeta.</p>
-      </div>
-    </section>
-
-    <!-- 9. FAQ -->
-    <section class="section">
-      <div class="glass-card">
-        <h2>Información para nuestros invitados</h2>
-        <dl class="faq">
-          <dt>Asistencia con niños</dt>
-          <dd>Los niños de la familia son muy bienvenidos. Contaremos con un menú infantil y un espacio recreativo pensado especialmente para ellos; solo les pedimos indicarlo al confirmar asistencia.</dd>
-          <dt>Estacionamiento</dt>
-          <dd>El salón dispone de estacionamiento privado y servicio de valet parking sin costo para todos nuestros invitados.</dd>
-          <dt>Álbum de recuerdos</dt>
-          <dd>Podrán compartir las fotografías que tomen durante la velada escaneando el código QR ubicado en cada mesa, para que podamos conservar todos los recuerdos en un mismo lugar.</dd>
-        </dl>
-        <div class="btn-group">
-          <a href="#" class="btn btn-small">Ir al álbum de fotos</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- 10. CIERRE -->
-    <footer class="section footer-section">
-      <div class="glass-card glass-card--full">
-        <h2>Libro de Firmas</h2>
-        <p class="text">Nos haría muy felices conservar unas palabras, un consejo o un recuerdo suyo de este día tan importante para nuestra familia.</p>
-        <div class="btn-group">
-          <a href="https://forms.gle/" target="_blank" rel="noopener" class="btn">Dejar mensaje</a>
-        </div>
-        <div class="divider">✦ ✦ ✦</div>
-        <p class="final-text">Con todo nuestro cariño, Camila &amp; Federico</p>
-        <p class="signature">24 de Abril de 2027</p>
-      </div>
-    </footer>
-
   </div>
-</main>
+</nav>
 
-<canvas id="sparkles-canvas"></canvas>
+<header class="hero">
+  <div class="container">
+    <p class="serif" style="text-transform:uppercase;letter-spacing:.25em;font-size:.85rem;color:var(--text-muted);">Con la bendición de nuestras familias</p>
+    <h1 class="serif" style="font-size:clamp(2.5rem,8vw,4.5rem);margin:1rem 0;">Sofía <span style="color:var(--accent);">&amp;</span> Martín</h1>
+    <div style="width:120px;height:1px;background:var(--accent);margin:1.5rem auto;"></div>
+    <p class="serif" style="font-style:italic;font-size:1.3rem;color:var(--text-muted);">Tenemos el honor de invitarlos a celebrar la unión de nuestras vidas.</p>
+    <div class="card d-inline-block mt-3">
+      <span style="text-transform:uppercase;letter-spacing:.2em;font-size:.85rem;font-weight:600;">Sábado 14 de Noviembre de 2026</span>
+      <span style="margin:0 .5rem;color:var(--accent);">•</span>
+      <span style="font-size:.85rem;">19:30 hs — Buenos Aires</span>
+    </div>
+    <div class="mt-4">
+      <p style="text-transform:uppercase;letter-spacing:.22em;font-size:.75rem;color:var(--text-muted);margin-bottom:.8rem;">Faltan</p>
+      <div class="d-flex gap-2 justify-content-center flex-wrap">
+        <div class="card p-2" style="min-width:70px;"><span id="cd-days" class="serif" style="font-size:2rem;font-weight:600;display:block;">00</span><span style="font-size:.7rem;text-transform:uppercase;letter-spacing:.15em;color:var(--text-muted);">Días</span></div>
+        <div class="card p-2" style="min-width:70px;"><span id="cd-hours" class="serif" style="font-size:2rem;font-weight:600;display:block;">00</span><span style="font-size:.7rem;text-transform:uppercase;letter-spacing:.15em;color:var(--text-muted);">Horas</span></div>
+        <div class="card p-2" style="min-width:70px;"><span id="cd-minutes" class="serif" style="font-size:2rem;font-weight:600;display:block;">00</span><span style="font-size:.7rem;text-transform:uppercase;letter-spacing:.15em;color:var(--text-muted);">Min</span></div>
+        <div class="card p-2" style="min-width:70px;"><span id="cd-seconds" class="serif" style="font-size:2rem;font-weight:600;display:block;color:var(--accent);">00</span><span style="font-size:.7rem;text-transform:uppercase;letter-spacing:.15em;color:var(--text-muted);">Seg</span></div>
+      </div>
+    </div>
+  </div>
+</header>
 
+<section class="section-pad" id="historia">
+  <div class="container">
+    <div class="text-center mb-4">
+      <span style="text-transform:uppercase;letter-spacing:.25em;font-size:.75rem;color:var(--accent);font-weight:600;">Nuestra Historia</span>
+      <h2 class="serif" style="font-size:2.5rem;margin:.5rem 0 1rem;">El camino que nos trajo hasta aquí</h2>
+      <div style="width:80px;height:1px;background:var(--accent);margin:0 auto 1.5rem;"></div>
+    </div>
+    <div class="row g-3">
+      <div class="col-md-4"><div class="card text-center h-100"><h3 class="serif" style="font-size:1.4rem;">El Primer Encuentro</h3><p style="color:var(--text-muted);font-size:.9rem;">Abril 2019 — San Telmo</p></div></div>
+      <div class="col-md-4"><div class="card text-center h-100"><h3 class="serif" style="font-size:1.4rem;">Nuestro Hogar</h3><p style="color:var(--text-muted);font-size:.9rem;">Octubre 2022</p></div></div>
+      <div class="col-md-4"><div class="card text-center h-100"><h3 class="serif" style="font-size:1.4rem;">La Propuesta</h3><p style="color:var(--text-muted);font-size:.9rem;">Diciembre 2025 — Villa La Angostura</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad" id="ubicacion" style="background:var(--bg-secondary);">
+  <div class="container">
+    <div class="text-center mb-4">
+      <span style="text-transform:uppercase;letter-spacing:.25em;font-size:.75rem;color:var(--accent);font-weight:600;">Cuándo y Dónde</span>
+      <h2 class="serif" style="font-size:2.5rem;margin:.5rem 0 1rem;">Ceremonia y Celebración</h2>
+      <div style="width:80px;height:1px;background:var(--accent);margin:0 auto 1.5rem;"></div>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-6">
+        <div class="card h-100 text-center">
+          <h3 class="serif" style="font-size:1.6rem;">Ceremonia Religiosa</h3>
+          <p style="font-weight:600;margin:.5rem 0;">19:30 hs</p>
+          <p style="color:var(--text-muted);font-size:.9rem;">Parroquia Nuestra Señora del Pilar<br>Junín 1898, Recoleta, CABA</p>
+          <div class="d-flex gap-2 justify-content-center flex-wrap mt-3">
+            <a href="https://www.google.com/maps/search/?api=1&query=Parroquia+Nuestra+Se%C3%B1ora+del+Pilar+Junin+1898+Buenos+Aires" target="_blank" class="btn btn-sm">Google Maps</a>
+            <a href="https://waze.com/ul?q=Junin+1898+Buenos+Aires&navigate=yes" target="_blank" class="btn btn-sm">Waze</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card h-100 text-center">
+          <h3 class="serif" style="font-size:1.6rem;">Recepción y Cena</h3>
+          <p style="font-weight:600;margin:.5rem 0;">21:00 hs</p>
+          <p style="color:var(--text-muted);font-size:.9rem;">Palacio Sans Souci<br>Paz 705, Victoria, Buenos Aires</p>
+          <div class="d-flex gap-2 justify-content-center flex-wrap mt-3">
+            <a href="https://www.google.com/maps/search/?api=1&query=Palacio+Sans+Souci+Paz+705+Victoria+Buenos+Aires" target="_blank" class="btn btn-sm">Google Maps</a>
+            <a href="https://waze.com/ul?q=Palacio+Sans+Souci+Victoria+Buenos+Aires&navigate=yes" target="_blank" class="btn btn-sm">Waze</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad" id="cronograma">
+  <div class="container">
+    <div class="text-center mb-4">
+      <span style="text-transform:uppercase;letter-spacing:.25em;font-size:.75rem;color:var(--accent);font-weight:600;">Paso a Paso</span>
+      <h2 class="serif" style="font-size:2.5rem;margin:.5rem 0 1rem;">Programa de la Velada</h2>
+      <div style="width:80px;height:1px;background:var(--accent);margin:0 auto 1.5rem;"></div>
+    </div>
+    <div class="card" style="max-width:620px;margin:0 auto;text-align:left;">
+      <p><strong>19:30 hs</strong> — Ceremonia Religiosa</p>
+      <p><strong>21:00 hs</strong> — Recepción en los Jardines</p>
+      <p><strong>22:15 hs</strong> — Cena de Gala</p>
+      <p><strong>00:00 hs</strong> — Brindis, Vals y Apertura de Pista</p>
+      <p><strong>04:00 hs</strong> — Mesa Dulce y Despedida</p>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad" id="etiqueta" style="background:var(--bg-secondary);">
+  <div class="container text-center">
+    <span style="text-transform:uppercase;letter-spacing:.25em;font-size:.75rem;color:var(--accent);font-weight:600;">Código de Vestimenta</span>
+    <h2 class="serif" style="font-size:2.5rem;margin:.5rem 0 1rem;">Etiqueta Formal</h2>
+    <div style="width:80px;height:1px;background:var(--accent);margin:0 auto 1.5rem;"></div>
+    <div class="card" style="max-width:620px;margin:0 auto;">
+      <p>Traje oscuro o smoking para ellos; vestido largo o midi elegante para ellas. Evitar blanco y verde salvia (reservados).</p>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad" id="galeria">
+  <div class="container text-center">
+    <span style="text-transform:uppercase;letter-spacing:.25em;font-size:.75rem;color:var(--accent);font-weight:600;">Recuerdos</span>
+    <h2 class="serif" style="font-size:2.5rem;margin:.5rem 0 1rem;">Galería de Fotos</h2>
+    <div style="width:80px;height:1px;background:var(--accent);margin:0 auto 1.5rem;"></div>
+    <div class="carousel">
+      <div class="carousel-track" id="carousel-track">
+        <img src="IMG/fondo-cortinas.jpg" alt="Foto 1">
+        <img src="IMG/ChatGPT Image 13 ago 2026, 01_12_37 a.m..png" alt="Foto 2">
+        <img src="IMG/ChatGPT Image 13 ago 2026, 01_47_55 a.m..png" alt="Foto 3">
+        <img src="IMG/fondo-cortinas.jpg" alt="Foto 4">
+        <img src="IMG/ChatGPT Image 13 ago 2026, 01_12_37 a.m..png" alt="Foto 5">
+      </div>
+      <button class="carousel-btn prev" onclick="moveCarousel(-1)">&#10094;</button>
+      <button class="carousel-btn next" onclick="moveCarousel(1)">&#10095;</button>
+    </div>
+    <div class="carousel-dots" id="carousel-dots"></div>
+  </div>
+</section>
+
+<section class="section-pad" id="rsvp" style="background:var(--bg-secondary);">
+  <div class="container">
+    <div class="text-center mb-4">
+      <span style="text-transform:uppercase;letter-spacing:.25em;font-size:.75rem;color:var(--accent);font-weight:600;">Confirmación</span>
+      <h2 class="serif" style="font-size:2.5rem;margin:.5rem 0 1rem;">Confirmación de Asistencia</h2>
+      <div style="width:80px;height:1px;background:var(--accent);margin:0 auto 1.5rem;"></div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card">
+          <form id="rsvp-form">
+            <div class="mb-3"><input type="text" id="rsvp-name" class="form-control" placeholder="Nombre y apellido" required></div>
+            <div class="mb-3">
+              <select id="rsvp-guests" class="form-select">
+                <option value="1">1 Invitado</option>
+                <option value="2" selected>2 Invitados</option>
+                <option value="3">3 Invitados</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <select id="rsvp-diet" class="form-select">
+                <option value="Clásico">Menú Clásico</option>
+                <option value="Vegetariano">Vegetariano</option>
+                <option value="Vegano">Vegano</option>
+                <option value="Celíaco">Sin TACC</option>
+              </select>
+            </div>
+            <button type="submit" class="btn w-100">Enviar Confirmación</button>
+          </form>
+          <p id="rsvp-success" style="display:none;margin-top:1rem;color:var(--accent);font-weight:600;text-align:center;">¡Gracias por confirmar!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad" id="presentes">
+  <div class="container text-center">
+    <span style="text-transform:uppercase;letter-spacing:.25em;font-size:.75rem;color:var(--accent);font-weight:600;">Obsequios</span>
+    <h2 class="serif" style="font-size:2.5rem;margin:.5rem 0 1rem;">Nuestra Luna de Miel</h2>
+    <div style="width:80px;height:1px;background:var(--accent);margin:0 auto 1.5rem;"></div>
+    <div class="card" style="max-width:520px;margin:0 auto;">
+      <p style="color:var(--text-muted);font-size:.95rem;">Tu presencia es nuestro mejor regalo. Si deseás colaborar, alias: SOFIA.MARTIN.BODA</p>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad" id="guestbook">
+  <div class="container">
+    <div class="text-center mb-4">
+      <span style="text-transform:uppercase;letter-spacing:.25em;font-size:.75rem;color:var(--accent);font-weight:600;">Buenos Deseos</span>
+      <h2 class="serif" style="font-size:2.5rem;margin:.5rem 0 1rem;">Libro de Firmas</h2>
+      <div style="width:80px;height:1px;background:var(--accent);margin:0 auto 1.5rem;"></div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card">
+          <form id="guestbook-form">
+            <div class="mb-3"><input type="text" id="gb-author" class="form-control" placeholder="Tu nombre" required></div>
+            <div class="mb-3"><textarea id="gb-message" class="form-control" rows="2" placeholder="Tu mensaje" required></textarea></div>
+            <button type="submit" class="btn w-100">Publicar</button>
+          </form>
+          <div id="guestbook-wall" class="mt-3"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad" id="faq" style="background:var(--bg-secondary);">
+  <div class="container">
+    <div class="text-center mb-4">
+      <span style="text-transform:uppercase;letter-spacing:.25em;font-size:.75rem;color:var(--accent);font-weight:600;">Información Útil</span>
+      <h2 class="serif" style="font-size:2.5rem;margin:.5rem 0 1rem;">Preguntas Frecuentes</h2>
+      <div style="width:80px;height:1px;background:var(--accent);margin:0 auto 1.5rem;"></div>
+    </div>
+    <div class="accordion" id="faqAccordion">
+      <div class="accordion-item">
+        <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#f1">¿Los niños están invitados?</button></h2>
+        <div id="f1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion"><div class="accordion-body">Los niños de la familia son muy bienvenidos. Contaremos con menú infantil.</div></div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#f2">¿Hay estacionamiento?</button></h2>
+        <div id="f2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion"><div class="accordion-body">Sí, estacionamiento privado y valet parking sin cargo.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="section-pad text-center">
+  <div class="container">
+    <p class="serif" style="font-size:2rem;">Sofía <span style="color:var(--accent);">&amp;</span> Martín</p>
+    <p style="text-transform:uppercase;letter-spacing:.25em;font-size:.75rem;color:var(--text-muted);margin-top:.5rem;">14 de Noviembre de 2026</p>
+  </div>
+</footer>
+
+<audio id="bg-audio" loop preload="none" src="Kali Uchis - All I Can Say.mp3"></audio>
+<button onclick="var a=document.getElementById('bg-audio'); a.paused?a.play():a.pause();" style="position:fixed;bottom:1rem;right:1rem;padding:.6rem 1rem;border-radius:50px;background:var(--accent);color:#fff;border:none;cursor:pointer;z-index:1000;">♪ Música</button>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-  const envelope = document.getElementById("envelope");
-  const envelopeOverlay = document.getElementById("envelope-overlay");
-  let opened = false;
-
-  function openEnvelope() {
-    if (opened) return;
-    opened = true;
-    envelope.classList.add("open");
-    setTimeout(() => {
-      envelopeOverlay.style.opacity = "0";
-      envelopeOverlay.style.visibility = "hidden";
-      setTimeout(() => { envelopeOverlay.style.display = "none"; }, 1000);
-    }, 900);
-  }
-  envelope.addEventListener("click", openEnvelope);
-  envelope.addEventListener("keydown", (event) => {
-    if (event.key === "Enter" || event.key === " ") {
-      event.preventDefault();
-      openEnvelope();
-    }
-  });
-
-  const eventDate = new Date("2027-04-24T20:00:00").getTime();
+  const weddingDate = new Date('2026-11-14T19:30:00-03:00').getTime();
   function updateCountdown() {
-    const now = new Date().getTime();
-    const distance = eventDate - now;
-    if (distance < 0) {
-      document.getElementById("timer").innerHTML = "¡Empezó la fiesta!";
-      return;
-    }
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-    document.getElementById("days").innerText = days;
-    document.getElementById("hours").innerText = String(hours).padStart(2, "0");
-    document.getElementById("minutes").innerText = String(minutes).padStart(2, "0");
-    document.getElementById("seconds").innerText = String(seconds).padStart(2, "0");
+    const now = Date.now();
+    let distance = weddingDate - now;
+    if (distance < 0) distance = 0;
+    const days = Math.floor(distance / (1000*60*60*24));
+    const hours = Math.floor((distance % (1000*60*60*24))/(1000*60*60));
+    const minutes = Math.floor((distance % (1000*60*60))/(1000*60));
+    const seconds = Math.floor((distance % (1000*60))/1000);
+    document.getElementById('cd-days').textContent = String(days).padStart(2,'0');
+    document.getElementById('cd-hours').textContent = String(hours).padStart(2,'0');
+    document.getElementById('cd-minutes').textContent = String(minutes).padStart(2,'0');
+    document.getElementById('cd-seconds').textContent = String(seconds).padStart(2,'0');
   }
-  updateCountdown();
   setInterval(updateCountdown, 1000);
+  updateCountdown();
 
-  document.querySelectorAll(".copy-btn").forEach(function (btn) {
-    btn.addEventListener("click", function () {
-      const value = btn.dataset.copy;
-      navigator.clipboard.writeText(value).then(function () {
-        btn.textContent = "¡Copiado!";
-        setTimeout(function () { btn.textContent = "Copiar"; }, 2000);
-      });
-    });
+  let carouselIndex = 0;
+  const track = document.getElementById('carousel-track');
+  const imgs = track.querySelectorAll('img');
+  const dotsContainer = document.getElementById('carousel-dots');
+  imgs.forEach((_,i) => {
+    const d = document.createElement('span');
+    d.addEventListener('click', () => { carouselIndex = i; updateCarousel(); });
+    dotsContainer.appendChild(d);
+  });
+  function updateCarousel() {
+    track.style.transform = 'translateX(-' + (carouselIndex * 100) + '%)';
+    dotsContainer.querySelectorAll('span').forEach((s,i) => s.classList.toggle('active', i===carouselIndex));
+  }
+  function moveCarousel(dir) {
+    carouselIndex = (carouselIndex + dir + imgs.length) % imgs.length;
+    updateCarousel();
+  }
+  updateCarousel();
+
+  document.getElementById('rsvp-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('rsvp-name').value.trim();
+    if (!name) return;
+    const guests = document.getElementById('rsvp-guests').value;
+    const diet = document.getElementById('rsvp-diet').value;
+    const msg = 'Hola! Confirmo asistencia: ' + name + '. Cantidad: ' + guests + '. Menu: ' + diet + '.';
+    const url = 'https://wa.me/5491169143742?text=' + encodeURIComponent(msg);
+    window.open(url, '_blank');
+    document.getElementById('rsvp-success').style.display = 'block';
   });
 
-  // sparkles
-  (function() {
-    const canvas = document.getElementById('sparkles-canvas');
-    const ctx = canvas.getContext('2d');
-    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-    window.addEventListener('resize', resize);
-    resize();
-    const palette = ['#FFD3E0', '#FFB9CC', '#FFCDDB', '#FFE6EE', '#FFF1F6', '#FFFFFF'];
-    const particles = [];
-    for (let i = 0; i < 75; i++) {
-      particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        size: Math.random() * 3.5 + 1.5,
-        color: palette[Math.floor(Math.random() * palette.length)],
-        speedY: Math.random() * 1.2 + 0.6,
-        speedX: Math.random() * 0.6 - 0.3,
-        opacity: Math.random() * 0.8 + 0.2,
-        rotation: Math.random() * 360,
-        rotSpeed: Math.random() * 3 - 1.5,
-        shape: Math.random() > 0.4 ? 'star' : 'diamond'
-      });
-    }
-    function drawStar(cx, cy, spikes, outerRadius, innerRadius) {
-      let rot = (Math.PI / 2) * 3;
-      let step = Math.PI / spikes;
-      ctx.beginPath();
-      ctx.moveTo(cx, cy - outerRadius);
-      for (let i = 0; i < spikes; i++) {
-        let x = cx + Math.cos(rot) * outerRadius;
-        let y = cy + Math.sin(rot) * outerRadius;
-        ctx.lineTo(x, y);
-        rot += step;
-        x = cx + Math.cos(rot) * innerRadius;
-        y = cy + Math.sin(rot) * innerRadius;
-        ctx.lineTo(x, y);
-        rot += step;
-      }
-      ctx.lineTo(cx, cy - outerRadius);
-      ctx.closePath();
-      ctx.fill();
-    }
-    function drawDiamond(cx, cy, size) {
-      ctx.beginPath();
-      ctx.moveTo(cx, cy - size * 1.5);
-      ctx.lineTo(cx + size, cy);
-      ctx.lineTo(cx, cy + size * 1.5);
-      ctx.lineTo(cx - size, cy);
-      ctx.closePath();
-      ctx.fill();
-    }
-    function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particles.forEach(p => {
-        ctx.save();
-        ctx.globalAlpha = p.opacity;
-        ctx.fillStyle = p.color;
-        ctx.shadowColor = '#FFD3E0';
-        ctx.shadowBlur = 8;
-        p.y += p.speedY;
-        p.x += Math.sin(p.y * 0.01) + p.speedX;
-        p.rotation += p.rotSpeed;
-        if (p.y > canvas.height) { p.y = -10; p.x = Math.random() * canvas.width; }
-        ctx.translate(p.x, p.y);
-        ctx.rotate((p.rotation * Math.PI) / 180);
-        if (p.shape === 'diamond') drawDiamond(0, 0, p.size);
-        else drawStar(0, 0, 4, p.size * 2, p.size * 0.6);
-        ctx.restore();
-      });
-      requestAnimationFrame(animate);
-    }
-    animate();
-  })();
+  const GB_KEY = 'wedding_guestbook';
+  function loadGuestbook() { try { return JSON.parse(localStorage.getItem(GB_KEY) || '[]'); } catch(e){ return []; } }
+  function saveGuestbook(entries) { localStorage.setItem(GB_KEY, JSON.stringify(entries)); }
+  function renderGuestbook() {
+    const wall = document.getElementById('guestbook-wall');
+    const entries = loadGuestbook();
+    wall.innerHTML = entries.map(e => '<div class="card mt-2"><p style="font-style:italic;">"' + e.message + '"</p><p style="font-size:.8rem;color:var(--text-muted);">— ' + e.author + '</p></div>').join('');
+  }
+  renderGuestbook();
+  document.getElementById('guestbook-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const author = document.getElementById('gb-author').value.trim();
+    const message = document.getElementById('gb-message').value.trim();
+    if (!author || !message) return;
+    const entries = loadGuestbook();
+    entries.unshift({ author, message });
+    saveGuestbook(entries);
+    document.getElementById('gb-author').value = '';
+    document.getElementById('gb-message').value = '';
+    renderGuestbook();
+  });
 </script>
 </body>
 </html>

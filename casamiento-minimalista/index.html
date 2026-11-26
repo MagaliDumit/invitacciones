@@ -5,156 +5,264 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sofía & Martín — Minimalista</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <style>
-:root {
-  --bg-primary: #FFFFFF;
-  --bg-secondary: #F6F6F6;
-  --text-main: #111111;
-  --text-muted: #555555;
-  --accent: #111111;
-  --card-bg: #FFFFFF;
-  --border-color: #111111;
-  --radius: 0px;
-}
-body { background-color: var(--bg-primary); color: var(--text-main); font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 300; line-height: 1.65; margin: 0; }
-h1, h2, h3, .serif { font-family: 'Playfair Display', serif; font-weight: 400; text-transform: uppercase; letter-spacing: 0.12em; }
-.section { padding: 5.5rem 1.5rem; max-width: 860px; margin: 0 auto; text-align: center; }
-.section:nth-child(even) { background-color: var(--bg-secondary); max-width: 100%; }
-.card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--radius); padding: 2.5rem; }
-.btn { background-color: var(--accent); color: #FFFFFF; border: 1px solid var(--accent); padding: 0.9rem 2.2rem; border-radius: var(--radius); text-transform: uppercase; letter-spacing: 0.18em; font-size: 0.75rem; font-weight: 500; cursor: pointer; transition: 0.25s ease; }
-.btn:hover { background-color: #FFFFFF; color: #111111; }
-.carousel { position: relative; max-width: 600px; margin: 2rem auto; overflow: hidden; border-radius: var(--radius); }
-.carousel-track { display: flex; transition: transform 0.5s ease; }
-.carousel-track img { min-width: 100%; height: 360px; object-fit: cover; }
-.carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.4); color: #fff; border: none; padding: 0.5rem 0.8rem; cursor: pointer; border-radius: 4px; }
-.carousel-btn.prev { left: 10px; } .carousel-btn.next { right: 10px; }
-.carousel-dots { text-align: center; margin-top: 1rem; }
-.carousel-dots span { display: inline-block; width: 10px; height: 10px; margin: 0 4px; border-radius: 50%; background: var(--border-color); cursor: pointer; }
-.carousel-dots span.active { background: var(--accent); }
+:root { --bg-primary:#FFFFFF;--bg-secondary:#F6F6F6;--text-main:#111111;--text-muted:#555555;--accent:#111111;--card-bg:#FFFFFF;--border-color:#111111;--radius:0px; }
+body{background:var(--bg-primary);color:var(--text-main);font-family:'Plus Jakarta Sans',sans-serif;font-weight:300;line-height:1.65;margin:0;}
+h1,h2,h3,.serif{font-family:'Playfair Display',serif;font-weight:400;text-transform:uppercase;letter-spacing:.12em;}
+.card{background:var(--card-bg);border:1px solid var(--border-color);border-radius:var(--radius);padding:2rem;}
+.btn{background:var(--accent);color:#fff;border:1px solid var(--accent);padding:.9rem 2.2rem;border-radius:var(--radius);text-transform:uppercase;letter-spacing:.18em;font-size:.75rem;font-weight:500;cursor:pointer;transition:.25s;}
+.btn:hover{background:#fff;color:#111111;}
+.carousel{position:relative;max-width:600px;margin:2rem auto;overflow:hidden;border-radius:var(--radius);}
+.carousel-track{display:flex;transition:transform .5s ease;}
+.carousel-track img{min-width:100%;height:360px;object-fit:cover;}
+.carousel-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.4);color:#fff;border:none;padding:.5rem .8rem;cursor:pointer;border-radius:4px;}
+.carousel-btn.prev{left:10px;} .carousel-btn.next{right:10px;}
+.carousel-dots{text-align:center;margin-top:1rem;}
+.carousel-dots span{display:inline-block;width:10px;height:10px;margin:0 4px;border-radius:50%;background:var(--border-color);cursor:pointer;}
+.carousel-dots span.active{background:var(--accent);}
+body { padding: 0; }
+.section-pad { padding: 4rem 1rem; }
+.hero { text-align: center; padding: 5rem 1rem; }
 </style>
 </head>
 <body>
 
-<header class="section">
-  <p class="serif" style="text-transform:uppercase;letter-spacing:0.25em;font-size:0.85rem;color:var(--text-muted);">Con la bendición de nuestras familias</p>
-  <h1 class="serif" style="font-size:3.5rem;margin:1rem 0;">Sofía <span style="color:var(--accent);">&amp;</span> Martín</h1>
-  <div style="width:120px;height:1px;background:var(--accent);margin:1.5rem auto;"></div>
-  <p class="serif" style="font-style:italic;font-size:1.4rem;color:var(--text-muted);">Tenemos el honor de invitarlos a celebrar la unión de nuestras vidas.</p>
-  <div class="card" style="margin-top:2rem;display:inline-block;">
-    <span style="text-transform:uppercase;letter-spacing:0.2em;font-size:0.85rem;font-weight:600;">Sábado 14 de Noviembre de 2026</span>
-    <span style="margin:0 0.5rem;color:var(--accent);">•</span>
-    <span style="font-size:0.85rem;">19:30 hs — Buenos Aires</span>
+<nav class="navbar navbar-expand-lg" style="background:var(--bg-secondary);">
+  <div class="container">
+    <a class="navbar-brand serif" href="#" style="color:var(--accent);">S & M</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu"><span class="navbar-toggler-icon"></span></button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="#historia">Historia</a></li>
+        <li class="nav-item"><a class="nav-link" href="#ubicacion">Ubicación</a></li>
+        <li class="nav-item"><a class="nav-link" href="#galeria">Fotos</a></li>
+        <li class="nav-item"><a class="nav-link" href="#rsvp">Confirmación de asistencia</a></li>
+      </ul>
+    </div>
   </div>
-  <div style="margin-top:2rem;">
-    <p style="text-transform:uppercase;letter-spacing:0.22em;font-size:0.75rem;color:var(--text-muted);margin-bottom:0.8rem;">Faltan</p>
-    <div style="display:flex;gap:1rem;justify-content:center;">
-      <div class="card" style="padding:1rem;min-width:70px;"><span id="cd-days" class="serif" style="font-size:2rem;font-weight:600;display:block;">00</span><span style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--text-muted);">Días</span></div>
-      <div class="card" style="padding:1rem;min-width:70px;"><span id="cd-hours" class="serif" style="font-size:2rem;font-weight:600;display:block;">00</span><span style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--text-muted);">Horas</span></div>
-      <div class="card" style="padding:1rem;min-width:70px;"><span id="cd-minutes" class="serif" style="font-size:2rem;font-weight:600;display:block;">00</span><span style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--text-muted);">Min</span></div>
-      <div class="card" style="padding:1rem;min-width:70px;"><span id="cd-seconds" class="serif" style="font-size:2rem;font-weight:600;display:block;color:var(--accent);">00</span><span style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--text-muted);">Seg</span></div>
+</nav>
+
+<header class="hero">
+  <div class="container">
+    <p class="serif" style="text-transform:uppercase;letter-spacing:.25em;font-size:.85rem;color:var(--text-muted);">Con la bendición de nuestras familias</p>
+    <h1 class="serif" style="font-size:clamp(2.5rem,8vw,4.5rem);margin:1rem 0;">Sofía <span style="color:var(--accent);">&amp;</span> Martín</h1>
+    <div style="width:120px;height:1px;background:var(--accent);margin:1.5rem auto;"></div>
+    <p class="serif" style="font-style:italic;font-size:1.3rem;color:var(--text-muted);">Tenemos el honor de invitarlos a celebrar la unión de nuestras vidas.</p>
+    <div class="card d-inline-block mt-3">
+      <span style="text-transform:uppercase;letter-spacing:.2em;font-size:.85rem;font-weight:600;">Sábado 14 de Noviembre de 2026</span>
+      <span style="margin:0 .5rem;color:var(--accent);">•</span>
+      <span style="font-size:.85rem;">19:30 hs — Buenos Aires</span>
+    </div>
+    <div class="mt-4">
+      <p style="text-transform:uppercase;letter-spacing:.22em;font-size:.75rem;color:var(--text-muted);margin-bottom:.8rem;">Faltan</p>
+      <div class="d-flex gap-2 justify-content-center flex-wrap">
+        <div class="card p-2" style="min-width:70px;"><span id="cd-days" class="serif" style="font-size:2rem;font-weight:600;display:block;">00</span><span style="font-size:.7rem;text-transform:uppercase;letter-spacing:.15em;color:var(--text-muted);">Días</span></div>
+        <div class="card p-2" style="min-width:70px;"><span id="cd-hours" class="serif" style="font-size:2rem;font-weight:600;display:block;">00</span><span style="font-size:.7rem;text-transform:uppercase;letter-spacing:.15em;color:var(--text-muted);">Horas</span></div>
+        <div class="card p-2" style="min-width:70px;"><span id="cd-minutes" class="serif" style="font-size:2rem;font-weight:600;display:block;">00</span><span style="font-size:.7rem;text-transform:uppercase;letter-spacing:.15em;color:var(--text-muted);">Min</span></div>
+        <div class="card p-2" style="min-width:70px;"><span id="cd-seconds" class="serif" style="font-size:2rem;font-weight:600;display:block;color:var(--accent);">00</span><span style="font-size:.7rem;text-transform:uppercase;letter-spacing:.15em;color:var(--text-muted);">Seg</span></div>
+      </div>
     </div>
   </div>
 </header>
 
-<section class="section" id="historia">
-  <span style="text-transform:uppercase;letter-spacing:0.25em;font-size:0.75rem;color:var(--accent);font-weight:600;">Nuestra Historia</span>
-  <h2 class="serif" style="font-size:2.5rem;margin:0.5rem 0 1rem;">El camino que nos trajo hasta aquí</h2>
-  <div style="width:80px;height:1px;background:var(--accent);margin:0 auto 1.5rem;"></div>
-  <div class="card" style="max-width:620px;margin:0 auto;">
-    <p class="serif" style="font-style:italic;font-size:1.3rem;line-height:1.6;">"Desde aquella tarde de otoño de 2019 en que nuestros caminos se cruzaron, supimos que estábamos construyendo algo para toda la vida."</p>
-  </div>
-</section>
-
-<section class="section" id="ubicacion">
-  <span style="text-transform:uppercase;letter-spacing:0.25em;font-size:0.75rem;color:var(--accent);font-weight:600;">Cuándo y Dónde</span>
-  <h2 class="serif" style="font-size:2.5rem;margin:0.5rem 0 1rem;">Ceremonia y Celebración</h2>
-  <div style="width:80px;height:1px;background:var(--accent);margin:0 auto 1.5rem;"></div>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;">
-    <div class="card">
-      <h3 class="serif" style="font-size:1.6rem;">Ceremonia Religiosa</h3>
-      <p style="font-weight:600;margin:0.5rem 0;">19:30 hs</p>
-      <p style="color:var(--text-muted);font-size:0.9rem;">Parroquia Nuestra Señora del Pilar<br>Junín 1898, Recoleta, CABA</p>
-      <a href="https://maps.google.com/?q=Parroquia+Nuestra+Señora+del+Pilar+Junin+1898+Buenos+Aires" target="_blank" class="btn" style="margin-top:1rem;display:inline-block;">Ver Mapa</a>
+<section class="section-pad" id="historia">
+  <div class="container">
+    <div class="text-center mb-4">
+      <span style="text-transform:uppercase;letter-spacing:.25em;font-size:.75rem;color:var(--accent);font-weight:600;">Nuestra Historia</span>
+      <h2 class="serif" style="font-size:2.5rem;margin:.5rem 0 1rem;">El camino que nos trajo hasta aquí</h2>
+      <div style="width:80px;height:1px;background:var(--accent);margin:0 auto 1.5rem;"></div>
     </div>
-    <div class="card">
-      <h3 class="serif" style="font-size:1.6rem;">Recepción y Cena</h3>
-      <p style="font-weight:600;margin:0.5rem 0;">21:00 hs</p>
-      <p style="color:var(--text-muted);font-size:0.9rem;">Palacio Sans Souci<br>Paz 705, Victoria, Buenos Aires</p>
-      <a href="https://maps.google.com/?q=Palacio+Sans+Souci+Paz+705+Victoria+Buenos+Aires" target="_blank" class="btn" style="margin-top:1rem;display:inline-block;">Ver Mapa</a>
+    <div class="row g-3">
+      <div class="col-md-4"><div class="card text-center h-100"><h3 class="serif" style="font-size:1.4rem;">El Primer Encuentro</h3><p style="color:var(--text-muted);font-size:.9rem;">Abril 2019 — San Telmo</p></div></div>
+      <div class="col-md-4"><div class="card text-center h-100"><h3 class="serif" style="font-size:1.4rem;">Nuestro Hogar</h3><p style="color:var(--text-muted);font-size:.9rem;">Octubre 2022</p></div></div>
+      <div class="col-md-4"><div class="card text-center h-100"><h3 class="serif" style="font-size:1.4rem;">La Propuesta</h3><p style="color:var(--text-muted);font-size:.9rem;">Diciembre 2025 — Villa La Angostura</p></div></div>
     </div>
   </div>
 </section>
 
-<section class="section" id="cronograma">
-  <span style="text-transform:uppercase;letter-spacing:0.25em;font-size:0.75rem;color:var(--accent);font-weight:600;">Paso a Paso</span>
-  <h2 class="serif" style="font-size:2.5rem;margin:0.5rem 0 1rem;">Programa de la Velada</h2>
-  <div style="width:80px;height:1px;background:var(--accent);margin:0 auto 1.5rem;"></div>
-  <div class="card" style="text-align:left;max-width:620px;margin:0 auto;">
-    <p><strong>19:30 hs</strong> — Ceremonia Religiosa</p>
-    <p><strong>21:00 hs</strong> — Recepción en los Jardines</p>
-    <p><strong>22:15 hs</strong> — Cena de Gala</p>
-    <p><strong>00:00 hs</strong> — Brindis, Vals y Apertura de Pista</p>
-    <p><strong>04:00 hs</strong> — Mesa Dulce y Despedida</p>
-  </div>
-</section>
-
-<section class="section" id="etiqueta">
-  <span style="text-transform:uppercase;letter-spacing:0.25em;font-size:0.75rem;color:var(--accent);font-weight:600;">Código de Vestimenta</span>
-  <h2 class="serif" style="font-size:2.5rem;margin:0.5rem 0 1rem;">Etiqueta Formal</h3>
-  <div style="width:80px;height:1px;background:var(--accent);margin:0 auto 1.5rem;"></div>
-  <div class="card" style="max-width:620px;margin:0 auto;">
-    <p>Traje oscuro o smoking para ellos; vestido largo o midi elegante para ellas. Evitar blanco y verde salvia (reservados).</p>
-  </div>
-</section>
-
-<section class="section" id="galeria">
-  <span style="text-transform:uppercase;letter-spacing:0.25em;font-size:0.75rem;color:var(--accent);font-weight:600;">Recuerdos</span>
-  <h2 class="serif" style="font-size:2.5rem;margin:0.5rem 0 1rem;">Galería de Fotos</h2>
-  <div style="width:80px;height:1px;background:var(--accent);margin:0 auto 1.5rem;"></div>
-  <div class="carousel">
-    <div class="carousel-track" id="carousel-track">
-      <img src="IMG/fondo-cortinas.jpg" alt="Foto 1">
-      <img src="IMG/ChatGPT Image 13 ago 2026, 01_12_37 a.m..png" alt="Foto 2">
-      <img src="IMG/ChatGPT Image 13 ago 2026, 01_47_55 a.m..png" alt="Foto 3">
-      <img src="IMG/fondo-cortinas.jpg" alt="Foto 4">
-      <img src="IMG/ChatGPT Image 13 ago 2026, 01_12_37 a.m..png" alt="Foto 5">
+<section class="section-pad" id="ubicacion" style="background:var(--bg-secondary);">
+  <div class="container">
+    <div class="text-center mb-4">
+      <span style="text-transform:uppercase;letter-spacing:.25em;font-size:.75rem;color:var(--accent);font-weight:600;">Cuándo y Dónde</span>
+      <h2 class="serif" style="font-size:2.5rem;margin:.5rem 0 1rem;">Ceremonia y Celebración</h2>
+      <div style="width:80px;height:1px;background:var(--accent);margin:0 auto 1.5rem;"></div>
     </div>
-    <button class="carousel-btn prev" onclick="moveCarousel(-1)">&#10094;</button>
-    <button class="carousel-btn next" onclick="moveCarousel(1)">&#10095;</button>
+    <div class="row g-4">
+      <div class="col-md-6">
+        <div class="card h-100 text-center">
+          <h3 class="serif" style="font-size:1.6rem;">Ceremonia Religiosa</h3>
+          <p style="font-weight:600;margin:.5rem 0;">19:30 hs</p>
+          <p style="color:var(--text-muted);font-size:.9rem;">Parroquia Nuestra Señora del Pilar<br>Junín 1898, Recoleta, CABA</p>
+          <div class="d-flex gap-2 justify-content-center flex-wrap mt-3">
+            <a href="https://www.google.com/maps/search/?api=1&query=Parroquia+Nuestra+Se%C3%B1ora+del+Pilar+Junin+1898+Buenos+Aires" target="_blank" class="btn btn-sm">Google Maps</a>
+            <a href="https://waze.com/ul?q=Junin+1898+Buenos+Aires&navigate=yes" target="_blank" class="btn btn-sm">Waze</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card h-100 text-center">
+          <h3 class="serif" style="font-size:1.6rem;">Recepción y Cena</h3>
+          <p style="font-weight:600;margin:.5rem 0;">21:00 hs</p>
+          <p style="color:var(--text-muted);font-size:.9rem;">Palacio Sans Souci<br>Paz 705, Victoria, Buenos Aires</p>
+          <div class="d-flex gap-2 justify-content-center flex-wrap mt-3">
+            <a href="https://www.google.com/maps/search/?api=1&query=Palacio+Sans+Souci+Paz+705+Victoria+Buenos+Aires" target="_blank" class="btn btn-sm">Google Maps</a>
+            <a href="https://waze.com/ul?q=Palacio+Sans+Souci+Victoria+Buenos+Aires&navigate=yes" target="_blank" class="btn btn-sm">Waze</a>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="carousel-dots" id="carousel-dots"></div>
 </section>
 
-<section class="section" id="rsvp">
-  <span style="text-transform:uppercase;letter-spacing:0.25em;font-size:0.75rem;color:var(--accent);font-weight:600;">Confirmación</span>
-  <h2 class="serif" style="font-size:2.5rem;margin:0.5rem 0 1rem;">Confirmación de Asistencia</h2>
-  <div style="width:80px;height:1px;background:var(--accent);margin:0 auto 1.5rem;"></div>
-  <div class="card" style="max-width:520px;margin:0 auto;">
-    <form id="rsvp-form">
-      <input type="text" id="rsvp-name" placeholder="Nombre y apellido" style="width:100%;padding:0.75rem;border:1px solid var(--border-color);border-radius:var(--radius);margin-bottom:1rem;font-family:inherit;">
-      <button type="submit" class="btn" style="width:100%;">Enviar Confirmación</button>
-    </form>
-    <p id="rsvp-success" style="display:none;margin-top:1rem;color:var(--accent);font-weight:600;">¡Gracias por confirmar!</p>
+<section class="section-pad" id="cronograma">
+  <div class="container">
+    <div class="text-center mb-4">
+      <span style="text-transform:uppercase;letter-spacing:.25em;font-size:.75rem;color:var(--accent);font-weight:600;">Paso a Paso</span>
+      <h2 class="serif" style="font-size:2.5rem;margin:.5rem 0 1rem;">Programa de la Velada</h2>
+      <div style="width:80px;height:1px;background:var(--accent);margin:0 auto 1.5rem;"></div>
+    </div>
+    <div class="card" style="max-width:620px;margin:0 auto;text-align:left;">
+      <p><strong>19:30 hs</strong> — Ceremonia Religiosa</p>
+      <p><strong>21:00 hs</strong> — Recepción en los Jardines</p>
+      <p><strong>22:15 hs</strong> — Cena de Gala</p>
+      <p><strong>00:00 hs</strong> — Brindis, Vals y Apertura de Pista</p>
+      <p><strong>04:00 hs</strong> — Mesa Dulce y Despedida</p>
+    </div>
   </div>
 </section>
 
-<section class="section" id="presentes">
-  <span style="text-transform:uppercase;letter-spacing:0.25em;font-size:0.75rem;color:var(--accent);font-weight:600;">Obsequios</span>
-  <h2 class="serif" style="font-size:2.5rem;margin:0.5rem 0 1rem;">Nuestra Luna de Miel</h2>
-  <div style="width:80px;height:1px;background:var(--accent);margin:0 auto 1.5rem;"></div>
-  <div class="card" style="max-width:520px;margin:0 auto;">
-    <p style="color:var(--text-muted);font-size:0.95rem;">Tu presencia es nuestro mejor regalo. Si deseás colaborar, alias: SOFIA.MARTIN.BODA</p>
+<section class="section-pad" id="etiqueta" style="background:var(--bg-secondary);">
+  <div class="container text-center">
+    <span style="text-transform:uppercase;letter-spacing:.25em;font-size:.75rem;color:var(--accent);font-weight:600;">Código de Vestimenta</span>
+    <h2 class="serif" style="font-size:2.5rem;margin:.5rem 0 1rem;">Etiqueta Formal</h2>
+    <div style="width:80px;height:1px;background:var(--accent);margin:0 auto 1.5rem;"></div>
+    <div class="card" style="max-width:620px;margin:0 auto;">
+      <p>Traje oscuro o smoking para ellos; vestido largo o midi elegante para ellas. Evitar blanco y verde salvia (reservados).</p>
+    </div>
   </div>
 </section>
 
-<footer class="section">
-  <p class="serif" style="font-size:2rem;">Sofía <span style="color:var(--accent);">&amp;</span> Martín</p>
-  <p style="text-transform:uppercase;letter-spacing:0.25em;font-size:0.75rem;color:var(--text-muted);margin-top:0.5rem;">14 de Noviembre de 2026</p>
+<section class="section-pad" id="galeria">
+  <div class="container text-center">
+    <span style="text-transform:uppercase;letter-spacing:.25em;font-size:.75rem;color:var(--accent);font-weight:600;">Recuerdos</span>
+    <h2 class="serif" style="font-size:2.5rem;margin:.5rem 0 1rem;">Galería de Fotos</h2>
+    <div style="width:80px;height:1px;background:var(--accent);margin:0 auto 1.5rem;"></div>
+    <div class="carousel">
+      <div class="carousel-track" id="carousel-track">
+        <img src="IMG/fondo-cortinas.jpg" alt="Foto 1">
+        <img src="IMG/ChatGPT Image 13 ago 2026, 01_12_37 a.m..png" alt="Foto 2">
+        <img src="IMG/ChatGPT Image 13 ago 2026, 01_47_55 a.m..png" alt="Foto 3">
+        <img src="IMG/fondo-cortinas.jpg" alt="Foto 4">
+        <img src="IMG/ChatGPT Image 13 ago 2026, 01_12_37 a.m..png" alt="Foto 5">
+      </div>
+      <button class="carousel-btn prev" onclick="moveCarousel(-1)">&#10094;</button>
+      <button class="carousel-btn next" onclick="moveCarousel(1)">&#10095;</button>
+    </div>
+    <div class="carousel-dots" id="carousel-dots"></div>
+  </div>
+</section>
+
+<section class="section-pad" id="rsvp" style="background:var(--bg-secondary);">
+  <div class="container">
+    <div class="text-center mb-4">
+      <span style="text-transform:uppercase;letter-spacing:.25em;font-size:.75rem;color:var(--accent);font-weight:600;">Confirmación</span>
+      <h2 class="serif" style="font-size:2.5rem;margin:.5rem 0 1rem;">Confirmación de Asistencia</h2>
+      <div style="width:80px;height:1px;background:var(--accent);margin:0 auto 1.5rem;"></div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card">
+          <form id="rsvp-form">
+            <div class="mb-3"><input type="text" id="rsvp-name" class="form-control" placeholder="Nombre y apellido" required></div>
+            <div class="mb-3">
+              <select id="rsvp-guests" class="form-select">
+                <option value="1">1 Invitado</option>
+                <option value="2" selected>2 Invitados</option>
+                <option value="3">3 Invitados</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <select id="rsvp-diet" class="form-select">
+                <option value="Clásico">Menú Clásico</option>
+                <option value="Vegetariano">Vegetariano</option>
+                <option value="Vegano">Vegano</option>
+                <option value="Celíaco">Sin TACC</option>
+              </select>
+            </div>
+            <button type="submit" class="btn w-100">Enviar Confirmación</button>
+          </form>
+          <p id="rsvp-success" style="display:none;margin-top:1rem;color:var(--accent);font-weight:600;text-align:center;">¡Gracias por confirmar!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad" id="presentes">
+  <div class="container text-center">
+    <span style="text-transform:uppercase;letter-spacing:.25em;font-size:.75rem;color:var(--accent);font-weight:600;">Obsequios</span>
+    <h2 class="serif" style="font-size:2.5rem;margin:.5rem 0 1rem;">Nuestra Luna de Miel</h2>
+    <div style="width:80px;height:1px;background:var(--accent);margin:0 auto 1.5rem;"></div>
+    <div class="card" style="max-width:520px;margin:0 auto;">
+      <p style="color:var(--text-muted);font-size:.95rem;">Tu presencia es nuestro mejor regalo. Si deseás colaborar, alias: SOFIA.MARTIN.BODA</p>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad" id="guestbook">
+  <div class="container">
+    <div class="text-center mb-4">
+      <span style="text-transform:uppercase;letter-spacing:.25em;font-size:.75rem;color:var(--accent);font-weight:600;">Buenos Deseos</span>
+      <h2 class="serif" style="font-size:2.5rem;margin:.5rem 0 1rem;">Libro de Firmas</h2>
+      <div style="width:80px;height:1px;background:var(--accent);margin:0 auto 1.5rem;"></div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card">
+          <form id="guestbook-form">
+            <div class="mb-3"><input type="text" id="gb-author" class="form-control" placeholder="Tu nombre" required></div>
+            <div class="mb-3"><textarea id="gb-message" class="form-control" rows="2" placeholder="Tu mensaje" required></textarea></div>
+            <button type="submit" class="btn w-100">Publicar</button>
+          </form>
+          <div id="guestbook-wall" class="mt-3"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad" id="faq" style="background:var(--bg-secondary);">
+  <div class="container">
+    <div class="text-center mb-4">
+      <span style="text-transform:uppercase;letter-spacing:.25em;font-size:.75rem;color:var(--accent);font-weight:600;">Información Útil</span>
+      <h2 class="serif" style="font-size:2.5rem;margin:.5rem 0 1rem;">Preguntas Frecuentes</h2>
+      <div style="width:80px;height:1px;background:var(--accent);margin:0 auto 1.5rem;"></div>
+    </div>
+    <div class="accordion" id="faqAccordion">
+      <div class="accordion-item">
+        <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#f1">¿Los niños están invitados?</button></h2>
+        <div id="f1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion"><div class="accordion-body">Los niños de la familia son muy bienvenidos. Contaremos con menú infantil.</div></div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#f2">¿Hay estacionamiento?</button></h2>
+        <div id="f2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion"><div class="accordion-body">Sí, estacionamiento privado y valet parking sin cargo.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="section-pad text-center">
+  <div class="container">
+    <p class="serif" style="font-size:2rem;">Sofía <span style="color:var(--accent);">&amp;</span> Martín</p>
+    <p style="text-transform:uppercase;letter-spacing:.25em;font-size:.75rem;color:var(--text-muted);margin-top:.5rem;">14 de Noviembre de 2026</p>
+  </div>
 </footer>
 
 <audio id="bg-audio" loop preload="none" src="Kali Uchis - All I Can Say.mp3"></audio>
-<button onclick="document.getElementById('bg-audio').paused?document.getElementById('bg-audio').play():document.getElementById('bg-audio').pause();" style="position:fixed;bottom:1rem;right:1rem;padding:0.6rem 1rem;border-radius:50px;background:var(--accent);color:#fff;border:none;cursor:pointer;">♪ Música</button>
+<button onclick="var a=document.getElementById('bg-audio'); a.paused?a.play():a.pause();" style="position:fixed;bottom:1rem;right:1rem;padding:.6rem 1rem;border-radius:50px;background:var(--accent);color:#fff;border:none;cursor:pointer;z-index:1000;">♪ Música</button>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
   const weddingDate = new Date('2026-11-14T19:30:00-03:00').getTime();
   function updateCountdown() {
@@ -194,8 +302,36 @@ h1, h2, h3, .serif { font-family: 'Playfair Display', serif; font-weight: 400; t
 
   document.getElementById('rsvp-form').addEventListener('submit', (e) => {
     e.preventDefault();
-    if (!document.getElementById('rsvp-name').value.trim()) return;
+    const name = document.getElementById('rsvp-name').value.trim();
+    if (!name) return;
+    const guests = document.getElementById('rsvp-guests').value;
+    const diet = document.getElementById('rsvp-diet').value;
+    const msg = 'Hola! Confirmo asistencia: ' + name + '. Cantidad: ' + guests + '. Menu: ' + diet + '.';
+    const url = 'https://wa.me/5491169143742?text=' + encodeURIComponent(msg);
+    window.open(url, '_blank');
     document.getElementById('rsvp-success').style.display = 'block';
+  });
+
+  const GB_KEY = 'wedding_guestbook';
+  function loadGuestbook() { try { return JSON.parse(localStorage.getItem(GB_KEY) || '[]'); } catch(e){ return []; } }
+  function saveGuestbook(entries) { localStorage.setItem(GB_KEY, JSON.stringify(entries)); }
+  function renderGuestbook() {
+    const wall = document.getElementById('guestbook-wall');
+    const entries = loadGuestbook();
+    wall.innerHTML = entries.map(e => '<div class="card mt-2"><p style="font-style:italic;">"' + e.message + '"</p><p style="font-size:.8rem;color:var(--text-muted);">— ' + e.author + '</p></div>').join('');
+  }
+  renderGuestbook();
+  document.getElementById('guestbook-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const author = document.getElementById('gb-author').value.trim();
+    const message = document.getElementById('gb-message').value.trim();
+    if (!author || !message) return;
+    const entries = loadGuestbook();
+    entries.unshift({ author, message });
+    saveGuestbook(entries);
+    document.getElementById('gb-author').value = '';
+    document.getElementById('gb-message').value = '';
+    renderGuestbook();
   });
 </script>
 </body>
